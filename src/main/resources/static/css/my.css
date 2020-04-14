@@ -2,3 +2,26 @@
     padding-top: 0.2em !important;
     padding-bottom: 0.2em !important;
 }
+
+.my-padded-table-massive {
+    padding-top: 5em !important;
+    padding-bottom: 5em !important;
+}
+
+/*--------------------text--------------------*/
+
+.my-text-thin {
+    font-weight: 300 !important;
+}
+
+.my-text-spaced {
+    letter-spacing: 1px !important;
+}
+
+.my-text-lined {
+    line-height: 1.8 !important;
+}
+
+.my-opacity-mini {
+    opacity: 0.8 !important;
+}

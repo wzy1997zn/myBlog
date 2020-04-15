@@ -14,14 +14,14 @@
     <!--navigator-->
     <nav class="ui inverted attached segment">
         <div class="ui container">
-            <div class="ui inverted secondary menu my-padded-tb-xs">
+            <div class="ui inverted secondary stackable menu my-padded-tb-xs">
                 <h2 class="ui teal header item">myBlog</h2>
-                <a href="#" class="item"><i class="home icon"></i>Home</a>
-                <a href="#" class="item"><i class="idea icon"></i>Categories</a>
-                <a href="#" class="item"><i class="tags icon"></i>Tags</a>
-                <a href="#" class="item"><i class="folder open icon"></i>History</a>
-                <a href="#" class="item"><i class="info icon"></i>About me</a>
-                <div class="right item">
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="home icon"></i>Home</a>
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="idea icon"></i>Categories</a>
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="tags icon"></i>Tags</a>
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="folder open icon"></i>History</a>
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="info icon"></i>About me</a>
+                <div class="my-menu-item right item my-mobile-hide">
                     <div class="ui icon transparent inverted input">
                         <label for="search"></label>
                         <input type="text" placeholder="Search..." id="search">
@@ -30,12 +30,15 @@
                 </div>
             </div>
         </div>
+        <a href="#" class="ui black icon button my-top-right my-mobile-show" id="menu_toggle">
+            <i class="sidebar icon"></i>
+        </a>
     </nav>
 
     <!--main body-->
     <div class="my-padded-tb-l">
         <div class="ui container">
-            <div class="ui grid">
+            <div class="ui stackable grid">
 <!--                left part-->
                 <div class="eleven wide column">
                     <div class="ui top attached segment">
@@ -51,7 +54,7 @@
 <!--                content-->
                     <div class="ui attached segment">
                         <div class="ui padded vertical segment my-padded-tb-ml">
-                            <div class="ui grid">
+                            <div class="ui mobile reversed stackable grid">
                                 <div class="eleven wide column">
                                     <h2 class="ui header">Beautiful placeholders from picsum.photos!</h2>
                                     <p class="my-text">Just a url like https://picsum.photos//800/400 can give you a random beautiful
@@ -85,7 +88,7 @@
                             </div>
                         </div>
                         <div class="ui padded vertical segment my-padded-tb-ml">
-                            <div class="ui grid">
+                            <div class="ui mobile reversed stackable grid">
                                 <div class="eleven wide column">
                                     <h2 class="ui header">Beautiful placeholders from picsum.photos!</h2>
                                     <p class="my-text">Just a url like https://picsum.photos//800/400 can give you a random beautiful
@@ -119,7 +122,7 @@
                             </div>
                         </div>
                         <div class="ui padded vertical segment my-padded-tb-ml">
-                            <div class="ui grid">
+                            <div class="ui mobile reversed stackable grid">
                                 <div class="eleven wide column">
                                     <h2 class="ui header">Beautiful placeholders from picsum.photos!</h2>
                                     <p class="my-text">Just a url like https://picsum.photos//800/400 can give you a random beautiful
@@ -153,7 +156,7 @@
                             </div>
                         </div>
                         <div class="ui padded vertical segment my-padded-tb-ml">
-                            <div class="ui grid">
+                            <div class="ui mobile reversed stackable grid">
                                 <div class="eleven wide column">
                                     <h2 class="ui header">Beautiful placeholders from picsum.photos!</h2>
                                     <p class="my-text">Just a url like https://picsum.photos//800/400 can give you a random beautiful
@@ -187,13 +190,13 @@
                             </div>
                         </div>
                         <div class="ui padded vertical segment my-padded-tb-ml">
-                            <div class="ui grid">
+                            <div class="ui mobile reversed stackable grid">
                                 <div class="eleven wide column">
                                     <h2 class="ui header">Beautiful placeholders from picsum.photos!</h2>
                                     <p class="my-text">Just a url like https://picsum.photos//800/400 can give you a random beautiful
                                         picture with fixed size. You can also set your random seed to get same picture
                                         every time like this: https://picsum.photos/seed/yourseed/800/400. Try it!</p>
-                                    <div class="ui grid">
+                                    <div class="ui mobile reversed stackable grid">
                                         <div class="eleven wide column">
                                             <div class="ui horizontal link list">
                                                 <div class="item">
@@ -351,7 +354,7 @@
     <!--footer-->
     <footer class="ui inverted vertical segment my-padded-tb-xl">
         <div class="ui center aligned container">
-            <div class="ui inverted divided grid">
+            <div class="ui inverted divided stackable grid">
                 <div class="three wide column">
                     <div class="ui inverted link list">
                         <div class="item">
@@ -392,6 +395,10 @@
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-
+    <script>
+        $("#menu_toggle").click(function () {
+            $('.my-menu-item').toggleClass('my-mobile-hide')
+        })
+    </script>
 </body>
 </html>

@@ -79,7 +79,6 @@
     display: inline-block; !important;
 }
 
-/*--------------------display--------------------*/
 .my-sized {
     width: 800px !important;
     height: 400px !important;
@@ -90,7 +89,28 @@
     margin: auto !important;
 }
 
+/*--------------------position--------------------*/
+.my-top-right  {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+}
+
 /*--------------------color--------------------*/
 .my-black {
     color: #2d2d2d;
+}
+
+.my-mobile-show {
+    display: none !important;
+}
+
+@media screen and (max-width: 768px) {
+    .my-mobile-hide {
+        display: none !important;
+    }
+
+    .my-mobile-show {
+        display: block !important;
+    }
 }

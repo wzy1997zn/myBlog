@@ -1,17 +1,65 @@
-.my-padded-tb-mini {
+.my-padded-mini {
+    padding: 0.4em !important;
+}
+
+.my-padded-tb-xs {
     padding-top: 0.2em !important;
     padding-bottom: 0.2em !important;
 }
 
-.my-padded-table-massive {
+.my-padded-tb-s {
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+}
+
+.my-padded-tb-ms {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+}
+
+.my-padded-tb-m {
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+}
+
+.my-padded-tb-ml {
+    padding-top: 3em !important;
+    padding-bottom: 3em !important;
+}
+
+.my-padded-tb-l {
+    padding-top: 4em !important;
+    padding-bottom: 4em !important;
+}
+
+.my-padded-tb-xl {
     padding-top: 5em !important;
     padding-bottom: 5em !important;
 }
 
+.my-margin-tb-xs {
+    margin-top: 0.5em !important;
+    margin-bottom: 0.5em !important;
+}
+
+.my-margin-top-m {
+    margin-top: 2em !important;
+}
+
 /*--------------------text--------------------*/
+.my-text {
+    font-weight: 400 !important;
+    letter-spacing: 0.3px !important;
+    line-height: 1.5 !important;
+    opacity: 0.8 !important;
+}
 
 .my-text-thin {
-    font-weight: 300 !important;
+    font-weight: 400 !important;
+}
+
+.my-text-extreme-thin {
+    font-weight: 200 !important;
 }
 
 .my-text-spaced {
@@ -24,4 +72,25 @@
 
 .my-opacity-mini {
     opacity: 0.8 !important;
+}
+
+/*--------------------display--------------------*/
+.my-inline-block {
+    display: inline-block; !important;
+}
+
+/*--------------------display--------------------*/
+.my-sized {
+    width: 800px !important;
+    height: 400px !important;
+}
+
+.my-container {
+    max-width: 72em !important;
+    margin: auto !important;
+}
+
+/*--------------------color--------------------*/
+.my-black {
+    color: #2d2d2d;
 }

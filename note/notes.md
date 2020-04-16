@@ -47,8 +47,55 @@ Character: Visitor, Admin:
 
 
 
-### 1.2 Design diagram			![brief design of myBlog](.\Design diagram.png)
+### 1.2 Design diagram
+
+​			![brief design of myBlog](.\Design diagram.png)
 
 
 
-​	
+## 2. Front end
+
+### 2.1 Semantics UI
+
+[getting start](https://semantic-ui.com/introduction/getting-started.html)
+
+#### basic layout:
+
+​	ui.segment: A longitudinal section
+
+​	ui.segements: define multi-segment
+
+​	ui.menu: change a div to menu-like
+
+​	ui.item: items in menu
+
+​	ui.container: basic container to show inherited layout
+
+​	i.xxx.icon: abundant icons
+
+​	ui.grid: divide a div to 16 parts, and use 'five wide column'/'eleven wide column' to show the width of the sub div
+
+#### modifier:
+
+​	teal/black...: set color
+
+​	fluid: full fill the container
+
+​	right.aligned: align to right
+
+#### mobile fitting:
+
+​	mobile reverse: reverse the order of sub divs of a div
+
+​	@media screen and (max-width: 768px){} to define special css of mobile view
+
+### 2.2 picsum.photos
+
+​	A good api for random placeholders. Just a url like https://picsum.photos//800/400 can give you a random beautiful picture with fixed size. You can also set your random seed to get same picture every time like this: https://picsum.photos/seed/yourseed/800/400.
+
+
+
+### 2.3 background patterns
+
+​	[toptal.com](https://www.toptal.com/designers/subtlepatterns/)
+

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--    for fit mobil devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <!-- semantic UI CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="./static/css/my.css">
+    <title>Details</title>
+</head>
+<body>
+    <!--navigator-->
+    <nav class="ui inverted attached segment">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu my-padded-tb-xs">
+                <h2 class="ui teal header item">myBlog</h2>
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="home icon"></i>Home</a>
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="idea icon"></i>Categories</a>
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="tags icon"></i>Tags</a>
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="folder open icon"></i>History</a>
+                <a href="#" class="my-menu-item item my-mobile-hide"><i class="info icon"></i>About me</a>
+                <div class="my-menu-item right item my-mobile-hide">
+                    <div class="ui icon transparent inverted input">
+                        <label for="search"></label>
+                        <input type="text" placeholder="Search..." id="search">
+                        <i class="search link icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui black icon button my-top-right my-mobile-show" id="menu_toggle">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+    <!--main body-->
+    <div class="my-padded-tb-l">
+        <div class="ui my-container-s container">
+            <div class="ui top attached segment">
+<!--                header-->
+                <div class="ui horizontal link list">
+                    <div class="item">
+                        <img src="https://picsum.photos/seed/head/100/100" alt="" class="ui avatar image">
+                        <div class="content"><a href="#" class="header my-text-thin">Ziyue Wang</a></div>
+                    </div>
+                    <div class="item my-text-thin">
+                        <i class="calendar icon"></i> 4/14/2020
+                    </div>
+                    <div class="item my-text-thin">
+                        <i class="eye icon"></i> 123
+                    </div>
+                </div>
+            </div>
+            <div class="ui attached segment">
+<!--                img-->
+                <img src="https://picsum.photos/seed/laowang/800/400" alt="" class="ui fluid rounded image">
+            </div>
+            <div class="ui attached padded segment">
+<!--                content-->
+                <div class="ui right aligned basic segment">
+                    <div class="ui basic orange label">
+                        reprint
+                    </div>
+                </div>
+
+                <h2 class="ui center aligned header">大三实习生，字节跳动面经分享，已拿Offer</h2>
+                <br>
+                <div id="content" class="my-padded-lr-responsive my-padded-tb-l">
+                    <p>计科大三学生，无实习无项目经历成绩普通</p>
+                    <h3 id="h3940min"><span>一面3.9：40min</span><span> </span></h3>
+                    <p>HashMap和ConcurrentHashMap的区别</p>
+                    <p>vector，list</p>
+                    <p>C++多态，虚函数机制</p>
+                    <p>进程通信</p>
+                    <p>进程线程差异</p>
+                    <p>TCP三次握手四次挥手细节</p>
+                    <p>算法题：最长不重复字串（HashTable，O(N)）</p>
+                    <p>面试官人非常好，有一些遗漏的知识点会给你指出来并且讲解，也很耐心。</p>
+                    <h3 id="h3151h"><span>二面3.15：1h</span><span> </span></h3>
+                    <p>Java多态（看程序说结果，比较复杂，还考察了override和overwrite）</p>
+                    <p>二叉搜索树</p>
+                    <p>B树b+树</p>
+                    <p>红黑树删除算法</p>
+                    <p>用互斥锁实现读写锁，写者优先</p>
+                    <p>算法题：有100个方格，每个上面有毒蘑菇和体力蘑菇，毒蘑菇减体力体力蘑菇加体力，当前体力是能跳到的最远距离，求是否能跳到最远方格，如果可以，求落在第100格上的最大剩余体力</p>
+                    <p>二面面试官挺严肃的，回答问题不会肯定或者否定你，听完你的回答就会直接继续下一个知识点，节奏非常紧凑。面完我一度以为凉了，结果十分钟后hr打电话通知三面，而且三面面试官说前面的两次面试官评价挺高。所以小伙伴碰到比较严肃的面试官也不要灰心，平常心回答就好</p>
+                    <h3 id="h3171h"><span>三面3.17： 1h</span><span> </span></h3>
+                    <p>服务方法调用</p>
+                    <p>RPC/Netty</p>
+                    <p>序列化/反序列化</p>
+                    <p>10亿找Top10000，需要考虑分片，如果用最小堆需要考虑高效合并</p>
+                    <p>要考虑等待时间且带有优先权的打印机，设计数据结构使打印任务高效</p>
+                    <p>二十四点牌</p>
+                    <p>在三面开始的时候面试官问了能够实习的时间和想要实习的地点，猜测可能是leader直接面试（最后也正好去了这个面试官在的城市），人很和善，不过问题都不是我准备过的基础题型，碰到的时候还是有一点束手无策。</p>
+                    <h3 id="h327offeroffer"><span>3.27收到offer啦！等了快两周终于拿到心心念念的offer哈哈！</span><span> </span></h3>
+                    <p>其实准备字节跳动的面试还是需要着重准备基础部分（数据结构、算法、操作系统、计算机网络），另外对做算法题的要求很高，如果在看到题目的时候能直接给出这个题目的最优时空复杂度解法，面试官对你的评价会很高。</p>
+                    <p>如果基础知识比较扎实了，可以看看网络上的面试经验，找找自己不会的知识点，查漏补缺。</p>
+                    <p>也祝大家都能拿到心仪的offer！</p>
+                    <h2 id="h"><span>絮叨</span></h2>
+                    <p>首先恭喜一下读者，让敖丙我去，我是肯定面不过，这些好多都没准备过，我之前说校招比社招难，真的没框你们，所以仔们，真的得好好准备呀。</p>
+                    <p>说一下最近我的事情吧，最近小忙，文章输出频率不比以前了，而且最近熬夜熬多了好像头发少了，我后面还是控制下熬夜的事情。</p>
+                    <p>最后发个意见征集吧，不知道写啥了，我在写一个分布式锁的，下周发出来，其他就不知道了，你们留言看看你们想看啥，我看到感兴趣的我就写了。</p>
+                    <p>春招结束我就会停止录制面试视频了，还是想搞点技术的，或者搞点生活的？</p>
+                    <p>你们看看录啥喜欢看点。</p>
+                    <p>我是敖丙，一个在互联网苟且偷生的工具人。</p>
+                    <p><strong>最好的关系是互相成就</strong>，各位的<strong>「三连」</strong>就是丙丙创作的最大动力，我们下期见！</p>
+                </div>
+                
+<!--                tags-->
+                <div class="my-padded-lr-l">
+                    <a href="#" class="ui basic teal label">Java</a>
+                </div>
+
+<!--                donate-->
+                <div class="ui center aligned basic segment">
+                    <button id="payButton" class="ui orange basic circular button">donate</button>
+                </div>
+                <div class="ui flowing popup transition hidden" id="payBlock">
+                    <div class="ui orange basic label" >
+                        <div class="ui images" style="font-size: inherit">
+                            <div class="image">
+                                <img src="static/images/QR_Wechat_pay.png" alt="" class="ui rounded small bordered image">
+                                <div>WeChat</div>
+                            </div>
+                            <div class="image">
+                                <img src="static/images/QR_Alipay_pay.png" alt="" class="ui rounded small bordered image">
+                                <div>Alipay</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="ui attached positive message">
+<!--                info-->
+                <div class="ui grid">
+                    <div class="eleven wide column">
+                        <ul class="middle aligned list">
+                            <li>Author: Ziyue Wang</li>
+                            <li>Publish time: 4/17/2020</li>
+                            <li>License: CC BY-NC-ND 4.0</li>
+                        </ul>
+                    </div>
+                    <div class="five wide column">
+                        <img src="./static/images/QR_Wechat.jpg" alt="" class="ui right floated rounded bordered tiny image">
+                    </div>
+                </div>
+            </div>
+            <div class="ui bottom attached segment">
+<!--                comments-->
+                <div class="ui teal segment">
+                    <div class="ui comments">
+                        <h3 class="ui dividing header">Comments</h3>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="https://picsum.photos/100/100">
+                            </a>
+                            <div class="content">
+                                <a class="author">Matt</a>
+                                <div class="metadata">
+                                    <span class="date">Today at 5:42PM</span>
+                                </div>
+                                <div class="text">
+                                    How artistic!
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="https://picsum.photos/100/100">
+                            </a>
+                            <div class="content">
+                                <a class="author">Elliot Fu</a>
+                                <div class="metadata">
+                                    <span class="date">Yesterday at 12:30AM</span>
+                                </div>
+                                <div class="text">
+                                    <p>This has been very useful for my research. Thanks as well!</p>
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
+                                </div>
+                            </div>
+                            <div class="comments">
+                                <div class="comment">
+                                    <a class="avatar">
+                                        <img src="https://picsum.photos/100/100">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">Jenny Hess</a>
+                                        <div class="metadata">
+                                            <span class="date">Just now</span>
+                                        </div>
+                                        <div class="text">
+                                            Elliot you are always so right :)
+                                        </div>
+                                        <div class="actions">
+                                            <a class="reply">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="https://picsum.photos/100/100">
+                            </a>
+                            <div class="content">
+                                <a class="author">Joe Henderson</a>
+                                <div class="metadata">
+                                    <span class="date">5 days ago</span>
+                                </div>
+                                <div class="text">
+                                    Dude, this is awesome. Thanks so much
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui form">
+                    <div class="field">
+                        <textarea name="comment_content" placeholder="Please input your comments..." id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="fields">
+                        <div class="field my-mobile-fluid my-margin-bottom-xs">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="nickname" placeholder="nickname">
+                            </div>
+                        </div>
+                        <div class="field my-mobile-fluid my-margin-bottom-xs">
+                            <div class="ui left icon input">
+                                <i class="mail icon"></i>
+                                <input type="text" name="email" placeholder="email">
+                            </div>
+                        </div>
+                        <div class="field my-mobile-fluid my-margin-bottom-xs">
+                            <button class="ui teal button my-mobile-fluid"><i class="edit icon"></i> submit</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--footer-->
+    <footer class="ui inverted vertical segment my-padded-tb-xl">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+                    <div class="ui inverted link list">
+                        <div class="item">
+                            <img src="static/images/QR_Wechat.jpg" class="ui rounded image" style="width: 110px" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="three wide column">
+                    <h4 class="ui inverted header my-text-spaced my-opacity-mini">NEW BLOGS</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">User Story</a>
+                        <a href="#" class="item">User Story</a>
+                        <a href="#" class="item">User Story</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header my-text-spaced my-opacity-mini">CONTACT ME</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">Email: qdwangzy@outlook.com</a>
+                        <a href="#" class="item">QQ: 1278669362</a>
+<!--                        <a href="#" class="item"></a>-->
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class="ui inverted header my-text-spaced my-opacity-mini">myBlog</h4>
+                    <p class="my-text-extreme-thin my-text-spaced my-opacity-mini">This my personal blog. Designing, thinking and coding.</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="my-text-extreme-thin my-text-spaced my-opacity-tiny">All content copyright Ziyue Wang © 2020 • All rights reserved.</p>
+        </div>
+    </footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then semantic UI -->
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script>
+        $("#menu_toggle").click(function () {
+            $('.my-menu-item').toggleClass('my-mobile-hide')
+        })
+
+        $('#payButton').popup({
+            popup : $('#payBlock.popup'),
+            on : 'click',
+            position: 'bottom center'
+        });
+    </script>
+</body>
+</html>

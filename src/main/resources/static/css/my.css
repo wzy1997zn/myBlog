@@ -12,8 +12,9 @@ body {
     padding-bottom: 0.2em !important;
 }
 
-.my-padded-top-clear {
+.my-padded-tb-clear {
     padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .my-padded-tb-s {
@@ -113,6 +114,12 @@ body {
 .my-container-s {
     max-width: 60em !important;
     margin: auto !important;
+}
+
+/*--------------------shadow--------------------*/
+.my-shadow {
+    -webkit-box-shadow: 0 4px 8px rgba(0,0,0,0.4) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4) !important;
 }
 
 /*--------------------position--------------------*/

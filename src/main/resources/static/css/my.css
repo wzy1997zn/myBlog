@@ -12,6 +12,10 @@ body {
     padding-bottom: 0.2em !important;
 }
 
+.my-padded-top-clear {
+    padding-top: 0 !important;
+}
+
 .my-padded-tb-s {
     padding-top: 0.5em !important;
     padding-bottom: 0.5em !important;
@@ -144,5 +148,10 @@ body {
 
     .my-mobile-fluid {
         width: 100% !important;
+    }
+
+    .my-mobile-lr-clear {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 }

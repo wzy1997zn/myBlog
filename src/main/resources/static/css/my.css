@@ -65,6 +65,11 @@ body {
     margin-top: 0.5em !important;
 }
 
+.my-margin-tb-clear {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
 /*--------------------text--------------------*/
 .my-text {
     font-weight: 400 !important;

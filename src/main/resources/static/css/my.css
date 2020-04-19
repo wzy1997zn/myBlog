@@ -73,6 +73,10 @@ body {
     opacity: 0.8 !important;
 }
 
+.my-text-light {
+    font-weight: 500 !important;
+}
+
 .my-text-thin {
     font-weight: 400 !important;
 }

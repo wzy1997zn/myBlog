@@ -71,9 +71,10 @@
                         <div class="ui teal basic left pointing label my-margin-bottom-xs">VR/AR</div>
                     </div>
                     <div class="ui bottom attached segment">
-                        <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+                        <a href="https://github.com/wzy1997zn" target="_blank" class="ui circular icon button"><i class="github icon"></i></a>
                         <a href="javascript:void(0);" class="ui circular icon button" id="WeChatButton"><i class="weixin icon"></i></a>
                         <a href="javascript:void(0);" class="ui circular icon button" id="qqButton" data-content="1278669362"><i class="qq icon"></i></a>
+                        <a href="#" class="ui circular icon button" id="resumeButton" data-content="resume"><i class="file alternate icon"></i></a>
                     </div>
 
                     <div class="ui flowing popup transition hidden" id="WeChatBlock">
@@ -140,6 +141,10 @@
         });
 
         $('#qqButton').popup({
+            position: 'bottom center'
+        });
+
+        $('#resumeButton').popup({
             position: 'bottom center'
         });
     </script>

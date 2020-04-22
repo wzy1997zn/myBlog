@@ -112,3 +112,11 @@ body{background:url(yourbackgroundpattern.png);}
 #### Markdown Editor:
 
 [editor.md](http://editor.md.ipandao.com/)
+
+#### Better type setting:
+
+[typo.css](https://github.com/sofish/typo.css)
+
+#### CSS animate:
+
+[animate.css](https://github.com/daneden/animate.css)

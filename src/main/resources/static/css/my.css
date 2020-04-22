@@ -7,6 +7,10 @@ body {
     padding: 0.4em !important;
 }
 
+.my-padded-m {
+    padding: 2em !important;
+}
+
 .my-padded-tb-xs {
     padding-top: 0.2em !important;
     padding-bottom: 0.2em !important;
@@ -142,9 +146,19 @@ body {
 
 /*--------------------position--------------------*/
 .my-top-right  {
-    position: absolute;
-    top: 2em;
-    right: 2em;
+    position: absolute !important;
+    top: 2em !important;
+    right: 2em !important;
+}
+
+.my-bottom-right  {
+    bottom: 2em !important;
+    right: 2em !important;
+}
+
+.my-fixed {
+    position: fixed !important;
+    z-index: 10 !important;
 }
 
 /*--------------------color--------------------*/

@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="./static/lib/typocss/typo.css">
     <link rel="stylesheet" href="./static/lib/animatecss/animate.css">
+    <link rel="stylesheet" href="./static/lib/prism/prism.css">
     <link rel="stylesheet" href="./static/css/my.css">
     <title>Details</title>
 </head>
@@ -274,6 +275,7 @@
                         demo you're watching now. The following code is the best way to render typo in Chinese:
                     </p>
                     <pre>
+                        <code class="language-css">
 /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
 h1,h2,h3,h4,h5,h6 {
     line-height:1;font-family:Arial,sans-serif;margin:1.4em 0 0.8em;
@@ -288,7 +290,9 @@ h5,h6{font-size:1em;}
 .typo p, .typo pre, .typo ul, .typo ol, .typo dl, .typo form, .typo hr {
     margin:1em 0 0.6em;
 }
-</pre>
+                        </code>
+
+                    </pre>
 
                     <h3 id="section3">三、附录</h3>
 
@@ -450,14 +454,12 @@ h5,h6{font-size:1em;}
                 
 <!--                tags-->
             <div class="ui attached teal segment">
-                <div class="my-padded-lr-l">
-                    <a href="#" class="ui basic teal label">Java</a>
+                <div class="my-padded-lr-responsive">
+                    <a href="#" class="ui basic teal right floated left pointing label">Java</a>
                 </div>
-            </div>
 
 
 <!--                appreciation-->
-            <div class="ui attached segment">
                 <div class="ui center aligned basic segment">
                     <button id="payButton" class="ui orange basic circular button">Appreciation</button>
                 </div>
@@ -481,7 +483,7 @@ h5,h6{font-size:1em;}
 
             <div class="ui attached positive message">
 <!--                info-->
-                <div class="ui grid">
+                <div class="ui grid my-padded-lr-responsive">
                     <div class="eleven wide column">
                         <ul class="middle aligned list">
                             <li>Author: Ziyue Wang</li>
@@ -494,7 +496,7 @@ h5,h6{font-size:1em;}
                     </div>
                 </div>
             </div>
-            <div class="ui bottom attached segment">
+            <div id="comments" class="ui bottom attached segment">
 <!--                comments-->
                 <div class="ui teal segment">
                     <div class="ui comments">
@@ -598,6 +600,31 @@ h5,h6{font-size:1em;}
         </div>
     </div>
 
+    <div class="my-fixed my-bottom-right my-shadow">
+        <div class="ui vertical icon buttons">
+            <button type="button" id="catalogButton" class="ui icon teal button"><i class="file alternate outline icon"></i></button>
+            <a href="#comments" type="button" id="commentButton" class="ui icon teal button"><i class="comment alternate outline icon"></i></a>
+            <button class="ui icon teal button" id="wechatButton"><i class="weixin icon"></i></button>
+            <a href="#" type="button" id="topButton" class="ui icon teal button"><i class="chevron up icon"></i></a>
+        </div>
+    </div>
+
+    <div class="ui flowing popup transition hidden" id="catalogBlock">
+        catalog
+    </div>
+
+    <div class="ui flowing popup transition hidden" id="commentBlock">
+        Comments
+    </div>
+
+    <div class="ui flowing popup transition hidden" id="wechatBlock">
+        wechat QR
+    </div>
+
+    <div class="ui flowing popup transition hidden" id="topBlock">
+        Top
+    </div>
+
     <!--footer-->
     <footer class="ui inverted vertical segment my-padded-tb-xl">
         <div class="ui center aligned container">
@@ -642,6 +669,7 @@ h5,h6{font-size:1em;}
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="./static/lib/prism/prism.js"></script>
     <script>
         $("#menu_toggle").click(function () {
             $('.my-menu-item').toggleClass('my-mobile-hide')
@@ -651,6 +679,30 @@ h5,h6{font-size:1em;}
             popup : $('#payBlock.popup'),
             on : 'click',
             position: 'bottom center'
+        });
+
+        $('#catalogButton').popup({
+            popup : $('#catalogBlock.popup'),
+            on : 'hover',
+            position: 'left center'
+        });
+
+        $('#commentButton').popup({
+            popup : $('#commentBlock.popup'),
+            on : 'hover',
+            position: 'left center'
+        });
+
+        $('#wechatButton').popup({
+            popup : $('#wechatBlock.popup'),
+            on : 'hover',
+            position: 'left center'
+        });
+
+        $('#topButton').popup({
+            popup : $('#topBlock.popup'),
+            on : 'hover',
+            position: 'left center'
         });
     </script>
 </body>

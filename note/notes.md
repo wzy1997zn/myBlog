@@ -99,3 +99,16 @@ Character: Visitor, Admin:
 
 ​	[toptal.com](https://www.toptal.com/designers/subtlepatterns/)
 
+   In css, set:
+
+```css
+body{background:url(yourbackgroundpattern.png);}
+```
+
+
+
+### 2.4 plugins
+
+#### Markdown Editor:
+
+[editor.md](http://editor.md.ipandao.com/)

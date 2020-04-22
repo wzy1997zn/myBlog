@@ -120,3 +120,7 @@ body{background:url(yourbackgroundpattern.png);}
 #### CSS animate:
 
 [animate.css](https://github.com/daneden/animate.css)
+
+#### Code highlighting:
+
+[prismJS](https://github.com/PrismJS/prism)

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./static/lib/typocss/typo.css">
     <link rel="stylesheet" href="./static/lib/animatecss/animate.css">
     <link rel="stylesheet" href="./static/lib/prism/prism.css">
+    <link rel="stylesheet" href="./static/lib/tocbot/tocbot.css">
     <link rel="stylesheet" href="./static/css/my.css">
     <title>Details</title>
 </head>
@@ -69,10 +70,10 @@
                     </div>
                 </div>
 
-                <h2 class="ui center aligned header">大三实习生，字节跳动面经分享，已拿Offer</h2>
+                <h2 class="ui center aligned header">Example blog</h2>
                 <br>
-                <div id="content" class=" typo typo-selection my-padded-lr-responsive my-padded-tb-l">
-                    <h2 id="tagline" class="serif">一致化浏览器排版效果，构建最适合中文阅读的网页排版</h2>
+                <div id="content" class=" typo typo-selection js-toc-content my-padded-lr-responsive my-padded-tb-l">
+                    <h1 id="tagline" class="serif">一致化浏览器排版效果，构建最适合中文阅读的网页排版</h1>
 
                     <ol id="table">
                         <li><a href="#section1">关于 <i class="serif">Typo.css</i></a></li>
@@ -294,7 +295,7 @@ h5,h6{font-size:1em;}
 
                     </pre>
 
-                    <h3 id="section3">三、附录</h3>
+                    <h2 id="section3">三、附录</h2>
 
                     <h5 id="appendix1">1、<i class="serif">Typo.css</i> 排版偏重点</h5>
                     <table class="ui table" summary="Typo.css 排版偏重点">
@@ -609,8 +610,8 @@ h5,h6{font-size:1em;}
         </div>
     </div>
 
-    <div class="ui flowing popup transition hidden" id="catalogBlock">
-        catalog
+    <div class="ui flowing popup transition hidden" style="width: 250px" id="catalogBlock">
+        <ol class="js-toc"></ol>
     </div>
 
     <div class="ui flowing popup transition hidden" id="commentBlock">
@@ -670,6 +671,7 @@ h5,h6{font-size:1em;}
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script src="./static/lib/prism/prism.js"></script>
+    <script src="./static/lib/tocbot/tocbot.min.js"></script>
     <script>
         $("#menu_toggle").click(function () {
             $('.my-menu-item').toggleClass('my-mobile-hide')
@@ -681,9 +683,20 @@ h5,h6{font-size:1em;}
             position: 'bottom center'
         });
 
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.js-toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.js-toc-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h2, h3',
+            // For headings inside relative or absolute positioned containers within content.
+            hasInnerContainers: true,
+        });
+
         $('#catalogButton').popup({
             popup : $('#catalogBlock.popup'),
-            on : 'hover',
+            on : 'click',
             position: 'left center'
         });
 
@@ -695,7 +708,7 @@ h5,h6{font-size:1em;}
 
         $('#wechatButton').popup({
             popup : $('#wechatBlock.popup'),
-            on : 'hover',
+            on : 'click',
             position: 'left center'
         });
 

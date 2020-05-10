@@ -133,3 +133,6 @@ body{background:url(yourbackgroundpattern.png);}
 
 [scrollTo](https://github.com/flesler/jquery.scrollTo)
 
+#### Scrolling detection:
+
+[waypoints](https://github.com/imakewebthings/waypoints)

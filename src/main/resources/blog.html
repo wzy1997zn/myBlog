@@ -41,7 +41,7 @@
     </nav>
 
     <!--main body-->
-    <div class="my-padded-tb-l animated fadeIn">
+    <div id="main-body" class="my-padded-tb-l animated fadeIn">
         <div class="ui my-container-s container">
             <div class="ui top attached segment">
 <!--                header-->
@@ -601,12 +601,12 @@ h5,h6{font-size:1em;}
         </div>
     </div>
 
-    <div class="my-fixed my-bottom-right my-shadow">
+    <div id="toolbar" class="my-fixed my-bottom-right my-shadow" style="display: none">
         <div class="ui vertical icon buttons">
             <button type="button" id="catalogButton" class="ui icon teal button"><i class="file alternate outline icon"></i></button>
             <a href="#comments" type="button" id="commentButton" class="ui icon teal button"><i class="comment alternate outline icon"></i></a>
             <button class="ui icon teal button" id="wechatButton"><i class="weixin icon"></i></button>
-            <a href="#" type="button" id="topButton" class="ui icon teal button"><i class="chevron up icon"></i></a>
+            <div type="button" id="topButton" class="ui icon teal button"><i class="chevron up icon"></i></div>
         </div>
     </div>
 
@@ -618,8 +618,8 @@ h5,h6{font-size:1em;}
         Comments
     </div>
 
-    <div class="ui flowing popup transition hidden" id="wechatBlock">
-        wechat QR
+    <div class="ui flowing popup transition hidden" style="width: 130px !important;" id="wechatBlock">
+
     </div>
 
     <div class="ui flowing popup transition hidden" id="topBlock">
@@ -670,8 +670,11 @@ h5,h6{font-size:1em;}
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
     <script src="./static/lib/prism/prism.js"></script>
     <script src="./static/lib/tocbot/tocbot.min.js"></script>
+    <script src="./static/lib/QRcode/qrcode.min.js"></script>
+    <script src="./static/lib/waypoints/jquery.waypoints.js"></script>
     <script>
         $("#menu_toggle").click(function () {
             $('.my-menu-item').toggleClass('my-mobile-hide')
@@ -712,11 +715,35 @@ h5,h6{font-size:1em;}
             position: 'left center'
         });
 
-        $('#topButton').popup({
-            popup : $('#topBlock.popup'),
-            on : 'hover',
-            position: 'left center'
+        var qrcode = new QRCode("wechatBlock", {
+            text: window.location.href,
+            width: 120,
+            height: 120,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
         });
+
+        // $('#topButton').popup({
+        //     popup : $('#topBlock.popup'),
+        //     on : 'hover',
+        //     position: 'left center'
+        // });
+
+        $('#topButton').click(function () {
+            $(window).scrollTo(0,500);
+        });
+
+        var waypoint = new Waypoint({
+            element: document.getElementById('main-body'),
+            handler: function(direction) {
+                if (direction == 'down') {
+                    $('#toolbar').show(500);
+                } else {
+                    $('#toolbar').hide(500);
+                }
+            }
+        })
     </script>
 </body>
 </html>

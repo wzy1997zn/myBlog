@@ -124,3 +124,12 @@ body{background:url(yourbackgroundpattern.png);}
 #### Code highlighting:
 
 [prismJS](https://github.com/PrismJS/prism)
+
+#### QR code auto generate:
+
+[qrcodejs](https://github.com/davidshimjs/qrcodejs)
+
+#### Smooth scrolling:
+
+[scrollTo](https://github.com/flesler/jquery.scrollTo)
+

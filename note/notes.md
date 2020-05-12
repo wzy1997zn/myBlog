@@ -227,6 +227,20 @@ This annotation is used on the methods of a Controller (also the class itself). 
 
 An annotation for enhancing Controllers. Mostly it is used for global exception handling with the help of *@ExceptionHandler*.
 
+#### @Aspect
+
+Define a aspect handler for AOP.
+
+#### @Pointcut
+
+Define a aspect and the handling method under a *@Aspect* class.
+
+```java
+@Pointcut("execution(* com.package.*.*(..))")
+```
+
+Intercept all the classes and all the methods in the package like above.
+
 ### 3.4 Error handling
 
 #### 404/500
@@ -262,3 +276,67 @@ if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) 
     throw e;
 }
 ```
+
+### 3.5 Log dealing with AOP
+
+#### what is AOP
+
+'[Aspect-oriented programming](https://en.wikipedia.org/wiki/Aspect-oriented_programming) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns.' It is aiming to adding some functions into the program without editing the original codes. In this blog project, log is not what the blog showing system should focus on. So dealing log with AOP paradigm is a good choice.
+
+#### log contents
+
+- request URL
+- request IP
+- the called method
+- args
+- returned contents
+
+#### Aspect component usage
+
+Below defines an aspect and set some methods being called before, after, and after returning the aspect.
+
+```java
+@Aspect
+@Component
+public class LogAspect {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Pointcut("execution(* com.zywang.myblog.controller.*.*(..))")
+    public void log() {
+
+    }
+    @Before("log()")
+    public void beforeAspect() {
+        logger.info("----------before----------");
+    }
+    @After("log()")
+    public void afterAspect() {
+        logger.info("----------after-----------");
+    }
+    @AfterReturning(returning = "result", pointcut = "log()")
+    public void afterReturn(Object result) {
+        logger.info("Result : {}", result);
+    }
+}
+```
+
+When handling such a request:
+
+```java
+@GetMapping("/logTest/{id}/{name}")
+public String logTest(@PathVariable Integer id,@PathVariable  String name) {
+    System.out.println("----------index-----------");
+    return "index";
+}
+```
+
+You can see results like this:
+
+```java
+2020-05-11 23:16:51.281  INFO 12024 --- [nio-8080-exec-5] com.zywang.myblog.aspect.LogAspect       : ----------before----------
+----------index-----------
+2020-05-11 23:16:51.282  INFO 12024 --- [nio-8080-exec-5] com.zywang.myblog.aspect.LogAspect       : ----------after-----------
+2020-05-11 23:16:51.282  INFO 12024 --- [nio-8080-exec-5] com.zywang.myblog.aspect.LogAspect       : Result : index
+```
+

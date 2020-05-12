@@ -227,3 +227,38 @@ This annotation is used on the methods of a Controller (also the class itself). 
 
 An annotation for enhancing Controllers. Mostly it is used for global exception handling with the help of *@ExceptionHandler*.
 
+### 3.4 Error handling
+
+#### 404/500
+
+Basic error states like 404 or 500 are handled by Spring Boot automatically. Just create the page files under the templates/error and you can see them when some errors happen . 
+
+#### Global error handle
+
+With *@ControllerAdvice* and *@ExceptionHandler*, it is easy to handle all the runtime exceptions wherever they happen.
+
+```java
+@ControllerAdvice
+public class ControllerExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ModelAndView exceptionHandler(HttpServletRequest request, Exception e) throws Exception {
+		......
+        // send info to common error page
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("url", request.getRequestURL());
+        mv.addObject("exception", e);
+        mv.setViewName("error/error");
+        return mv;
+    }
+}
+```
+
+Handlers like above is enough to get the error info and send them to an error page. If some special exceptions with response state code are supposed to be redirected to 404 page or 500 page, add codes below to ignore them.
+
+```java
+// not handle the exceptions with response states.
+if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
+    throw e;
+}
+```

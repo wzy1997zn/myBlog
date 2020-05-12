@@ -1,5 +1,7 @@
 # Developing notes
 
+This is just a note of my program developing experience. I am trying to document some useful things, but don't expect too much lol.
+
 ## 1. Demand Analysis
 
 ### 1.1 User Story
@@ -208,3 +210,20 @@ logging:
 *logging.level* shows 'how many log should be record'.
 
 *File.name* set the position of logging file.
+
+### 3.3 Some Annotations
+
+Below are very simple notes of SpringMVC annotations. Detailed instructions can be found in the official [documentation](https://docs.spring.io/spring/docs/current/spring-framework-reference/). Also, there are SO many blogs talking about such things. Just Google:)
+
+#### @Controller
+
+One of the components' annotations, showing this class is a 'controller' (of MVC). Controller is designed for handle the requests dispatched from Servlet. It may get some data from database, transform them into a Model and send the model to specific View.
+
+#### @RequestMapping
+
+This annotation is used on the methods of a Controller (also the class itself). It need a parameter to set which request this method should response to. There are also *@GetMapping*, *@PostMapping*, *@PutMapping*, *@deleteMapping* for dealing with RESTful requests. They can be seen as *@RequestMapping* with 'method==RequestMethod.xxx'
+
+#### @ControllerAdvice
+
+An annotation for enhancing Controllers. Mostly it is used for global exception handling with the help of *@ExceptionHandler*.
+

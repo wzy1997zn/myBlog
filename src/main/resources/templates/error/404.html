@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>404</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head('404')"></head>
 <body>
-    <h1>404</h1>
+    <!--navigator-->
+    <nav th:replace="_fragments :: navigator('error')" class="ui inverted attached segment my-shadow"></nav>
+    <div class="my-container-s">
+        <div class="ui error message my-padded-tb-l my-margin-tb-xxl">
+            <div class="ui container">
+                <h2>404</h2>
+                <p>Sorry, you are looking for a non-existent page.</p>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+    <footer th:replace="_fragments :: footer"></footer>
 </body>
 </html>

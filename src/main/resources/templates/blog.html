@@ -1,44 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <!--    for fit mobil devices-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
-    <!-- semantic UI CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-
-    <link rel="stylesheet" href="../static/lib/typocss/typo.css">
-    <link rel="stylesheet" href="../static/lib/animatecss/animate.css">
-    <link rel="stylesheet" href="../static/lib/prism/prism.css">
-    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css">
-    <link rel="stylesheet" href="../static/css/my.css">
-    <title>Details</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head('Details')"></head>
 <body>
     <!--navigator-->
-    <nav class="ui inverted attached segment my-shadow">
-        <div class="ui container">
-            <div class="ui inverted secondary stackable menu my-padded-tb-xs">
-                <h2 class="ui teal header item">myBlog</h2>
-                <a href="#" class="my-menu-item item my-mobile-hide"><i class="home icon"></i>Home</a>
-                <a href="#" class="my-menu-item item my-mobile-hide"><i class="idea icon"></i>Categories</a>
-                <a href="#" class="my-menu-item item my-mobile-hide"><i class="tags icon"></i>Tags</a>
-                <a href="#" class="my-menu-item item my-mobile-hide"><i class="folder open icon"></i>History</a>
-                <a href="#" class="my-menu-item item my-mobile-hide"><i class="info icon"></i>About me</a>
-                <div class="my-menu-item right item my-mobile-hide">
-                    <div class="ui icon transparent inverted input">
-                        <label for="search"></label>
-                        <input type="text" placeholder="Search..." id="search">
-                        <i class="search link icon"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#" class="ui black icon button my-top-right my-mobile-show" id="menu_toggle">
-            <i class="sidebar icon"></i>
-        </a>
-    </nav>
+    <nav th:replace="_fragments :: navigator('home')" class="ui inverted attached segment my-shadow"></nav>
 
     <!--main body-->
     <div id="main-body" class="my-padded-tb-l animated fadeIn">
@@ -461,18 +426,18 @@ h5,h6{font-size:1em;}
 
 
 <!--                appreciation-->
-                <div class="ui center aligned basic segment">
+                <div class="ui center aligned basic segment" style="margin-bottom: 0 !important;">
                     <button id="payButton" class="ui orange basic circular button">Appreciation</button>
                 </div>
                 <div class="ui flowing popup transition hidden" id="payBlock">
                     <div class="ui orange basic label" >
                         <div class="ui images" style="font-size: inherit">
                             <div class="image">
-                                <img src="../static/images/QR_Wechat_pay.png" alt="" class="ui rounded small bordered image">
+                                <img src="../static/images/QR_Wechat_pay.png" th:src="@{/images/QR_Wechat_pay.png}" alt="" class="ui rounded small bordered image">
                                 <div>WeChat</div>
                             </div>
                             <div class="image">
-                                <img src="../static/images/QR_Alipay_pay.png" alt="" class="ui rounded small bordered image">
+                                <img src="../static/images/QR_Alipay_pay.png" th:src="@{/images/QR_Alipay_pay.png}" alt="" class="ui rounded small bordered image">
                                 <div>Alipay</div>
                             </div>
                         </div>
@@ -493,7 +458,7 @@ h5,h6{font-size:1em;}
                         </ul>
                     </div>
                     <div class="five wide column">
-                        <img src="../static/images/QR_Wechat.jpg" alt="" class="ui right floated rounded bordered tiny image">
+                        <img src="../static/images/QR_Wechat.jpg" th:src="@{/images/QR_Wechat.jpg}" alt="" class="ui right floated rounded bordered tiny image">
                     </div>
                 </div>
             </div>
@@ -627,54 +592,10 @@ h5,h6{font-size:1em;}
     </div>
 
     <!--footer-->
-    <footer class="ui inverted vertical segment my-padded-tb-xl">
-        <div class="ui center aligned container">
-            <div class="ui inverted divided stackable grid">
-                <div class="three wide column">
-                    <div class="ui inverted link list">
-                        <div class="item">
-                            <img src="../static/images/QR_Wechat.jpg" class="ui rounded image" style="width: 110px" alt="">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="three wide column">
-                    <h4 class="ui inverted header my-text-spaced my-opacity-mini">NEW BLOGS</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item">User Story</a>
-                        <a href="#" class="item">User Story</a>
-                        <a href="#" class="item">User Story</a>
-                    </div>
-                </div>
-                <div class="three wide column">
-                    <h4 class="ui inverted header my-text-spaced my-opacity-mini">CONTACT ME</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item">Email: qdwangzy@outlook.com</a>
-                        <a href="#" class="item">QQ: 1278669362</a>
-<!--                        <a href="#" class="item"></a>-->
-                    </div>
-                </div>
-                <div class="seven wide column">
-                    <h4 class="ui inverted header my-text-spaced my-opacity-mini">myBlog</h4>
-                    <p class="my-text-extreme-thin my-text-spaced my-opacity-mini">This my personal blog. Designing, thinking and coding.</p>
-                </div>
-            </div>
-            <div class="ui inverted section divider"></div>
-            <p class="my-text-extreme-thin my-text-spaced my-opacity-tiny">All content copyright Ziyue Wang © 2020 • All rights reserved.</p>
-        </div>
-    </footer>
+    <footer th:replace="_fragments :: footer"></footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then semantic UI -->
-    <script
-            src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
-    <script src="../static/lib/prism/prism.js"></script>
-    <script src="../static/lib/tocbot/tocbot.min.js"></script>
-    <script src="../static/lib/QRcode/qrcode.min.js"></script>
-    <script src="../static/lib/waypoints/jquery.waypoints.js"></script>
+    <div th:replace="_fragments :: scripts"></div>
     <script>
         $("#menu_toggle").click(function () {
             $('.my-menu-item').toggleClass('my-mobile-hide')

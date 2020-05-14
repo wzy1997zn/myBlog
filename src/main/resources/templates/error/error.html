@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>ERROR</title>
-</head>
+<head th:replace="_fragments :: head('ERROR')"></head>
 <body>
-    <h1>ERROR</h1>
-    <!-- send the error info to this page and show as comments. Bad security but good for debug. -->
-    <div>
-        <div th:utext="'&lt;!--'" th:remove="tag"></div>
-        <!--/*@thymesVar id="url" type="java.lang.String"*/-->
-        <div th:utext="'Failed Request URL : ' + ${url}" th:remove="tag"></div>
-        <!--/*@thymesVar id="exception" type="java.lang.Exception"*/-->
-        <div th:utext="'Exception message : ' + ${exception.message}" th:remove="tag"></div>
-        <ul th:remove="tag">
-            <li th:each="st : ${exception.stackTrace}" th:remove="tag"><span th:utext="${st}"></span></li>
-        </ul>
-        <div th:utext="'--&gt;'" th:remove="tag"></div>
+<!--navigator-->
+<nav th:replace="_fragments :: navigator('error')" class="ui inverted attached segment my-shadow"></nav>
+<div class="my-container-s">
+    <div class="ui error message my-padded-tb-l my-margin-tb-xxl">
+        <div class="ui container">
+            <h1>ERROR</h1>
+            <p>Sorry, this should not happen...</p>
+            <!-- send the error info to this page and show as comments. Bad security but good for debug. -->
+            <div>
+                <div th:utext="'&lt;!--'" th:remove="tag"></div>
+                <!--/*@thymesVar id="url" type="java.lang.String"*/-->
+                <div th:utext="'Failed Request URL : ' + ${url}" th:remove="tag"></div>
+                <!--/*@thymesVar id="exception" type="java.lang.Exception"*/-->
+                <div th:utext="'Exception message : ' + ${exception.message}" th:remove="tag"></div>
+                <ul th:remove="tag">
+                    <li th:each="st : ${exception.stackTrace}" th:remove="tag"><span th:utext="${st}"></span></li>
+                </ul>
+                <div th:utext="'--&gt;'" th:remove="tag"></div>
+            </div>
+        </div>
     </div>
+</div>
+<!--footer-->
+<footer th:replace="_fragments :: footer"></footer>
 </body>
 </html>

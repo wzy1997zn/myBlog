@@ -13,7 +13,13 @@ public class IndexController {
 //        if (blog == null) {
 //            throw new NotFoundException("Blog not found.");
 //        }
+//        int i = 9/0;
         return "index";
+    }
+
+    @GetMapping("/details")
+    public String details() {
+        return "blog";
     }
 
     @GetMapping("/logTest/{id}/{name}")

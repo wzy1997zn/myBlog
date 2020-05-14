@@ -79,6 +79,11 @@ body {
     margin-bottom: 0 !important;
 }
 
+.my-margin-tb-xxl {
+    margin-top: 8em !important;
+    margin-bottom: 7em !important;
+}
+
 /*--------------------text--------------------*/
 .my-text {
     font-weight: 400 !important;

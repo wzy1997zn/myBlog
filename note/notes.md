@@ -340,3 +340,45 @@ You can see results like this:
 2020-05-11 23:16:51.282  INFO 12024 --- [nio-8080-exec-5] com.zywang.myblog.aspect.LogAspect       : Result : index
 ```
 
+### 3.6 DAO with JPA
+
+#### E-R diagram
+
+![E-R](C:\Users\qdwan\IdeaProjects\myBlog\note\E-R diagram.png)
+
+#### generate a table
+
+```java
+@Entity(name = "t_blog") //announce this is a table and the related table name
+public class Blog {}
+```
+
+#### set columns
+
+```java
+@Id // announce this is primary key
+@GeneratedValue // primary key is auto generated
+private Long id;
+
+private String title; // simple attributes
+private String content;
+
+@Temporal(TemporalType.TIMESTAMP) // set date type in the database
+private Date createdTime;
+```
+
+#### set inter-table relationships
+
+```java
+// in Blog.java
+@ManyToOne // many blogs to one category
+private Category category;
+
+// in Category.java
+@OneToMany(mappedBy = "category") // one category to many blogs, and this is managed by 'many side' because  'many side' update more frequently.
+private List<Blog> blogs = new ArrayList<>();
+```
+
+#### constructor, getter and setter
+
+alt+insert in IDEA :)

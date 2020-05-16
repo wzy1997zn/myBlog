@@ -340,7 +340,7 @@ You can see results like this:
 2020-05-11 23:16:51.282  INFO 12024 --- [nio-8080-exec-5] com.zywang.myblog.aspect.LogAspect       : Result : index
 ```
 
-### 3.6 DAO with JPA
+### 3.6 PO with JPA
 
 #### E-R diagram
 
@@ -382,3 +382,95 @@ private List<Blog> blogs = new ArrayList<>();
 #### constructor, getter and setter
 
 alt+insert in IDEA :)
+
+### 3.7 User login part
+
+#### LoginController
+
+To check whether the user exist, login() need *username*, *password*, pass these two parameter to **UserService** to check and generate po **User**. If login success, we need *session* to remember current user. If not, we need *redirectAttribute* to pass failure message back to client and ask to redirect.
+
+#### UserService
+
+interface UserFace: 
+
+```java
+public interface UserService {
+    User checkUser(String username, String password);
+}
+```
+
+class UserServiceImp:
+
+```java
+@Service 
+public class UserServiceImp implements UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+    @Override
+    public User checkUser(String username, String password) {
+        User user = userRepository.findByUsernameAndPassword(username, MD5Util.getMD5(password)); // avoid store real password
+        return user;
+    }
+}
+```
+
+Need *@Service* to tell this is a service, springboot can autowired it when UserService interface is used. To get a po User, we need dao **userRepository** to apply data access method.
+
+#### UserRepository
+
+```java
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUsernameAndPassword(String username, String password);
+}
+```
+
+Just define interface obeying rules is enough by extending JpaRepository. *findByUsernameAndPasswod()* means 
+
+```sql
+select user0_.id as id1_5_,
+user0_.avatar as avatar2_5_, user0_.create_time as create_t3_5_, user0_.email as email4_5_, user0_.nickname as nickname5_5_, user0_.password as password6_5_, user0_.type as type7_5_, user0_.update_time as update_t8_5_, 
+user0_.username as username9_5_ 
+from t_user user0_ 
+where user0_.username=? and user0_.password=?
+```
+
+With Jpa, implement of the interface is not necessary. If there is no Impl, interface will generate a SimpleJpaRepository automatically.
+
+#### Safety with MD5
+
+Here I use MD5 for cypher password. With no real password storage, it could be safer.
+
+#### Interceptor for admin system
+
+Finally, all the admin things should not be accessed without login. So **LoginInterceptor** is important.
+
+```java
+public class LoginInterceptor extends HandlerInterceptorAdapter {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("/admin");
+            return false;
+        }
+        return true;
+    }
+}
+```
+
+Interceptor need configurer to regist in springboot IOC container.
+
+```java
+@Configuration
+public class InterceptorConfigurer implements WebMvcConfigurer {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor()) // add a interceptor
+                .addPathPatterns("/admin/**") // all the paths like this
+                .excludePathPatterns("/admin","/admin/login");
+        // but admin itself and the form submit path should be exclude to avoid dead loop.
+    }
+}
+```
+
+So far, most things about backend of user login part have done. Related web pages  will not be explained here :)

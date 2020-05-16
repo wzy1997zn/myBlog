@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Standard Meta -->
     <meta charset="utf-8" />
@@ -9,7 +9,7 @@
     <!-- Site Properties -->
     <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" href="../../static/css/my.css">
+    <link rel="stylesheet" href="../../static/css/my.css" th:href="@{/css/my.css}">
 
     <style type="text/css">
         body {
@@ -33,15 +33,15 @@
         <h2 class="ui teal image header">
 <!--            <img src="../static/images/logo.png" class="image">-->
             <div class="content">
-                Log-in to your account
+                Log-in to manageBlog
             </div>
         </h2>
-        <form class="ui large form">
+        <form class="ui large form" method="post" action="#" th:action="@{/admin/login}">
             <div class="ui stacked segment">
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
-                        <input type="text" name="email" placeholder="E-mail address">
+                        <input type="text" name="username" placeholder="Username">
                     </div>
                 </div>
                 <div class="field">
@@ -53,38 +53,33 @@
                 <div class="ui fluid large teal submit button">Login</div>
             </div>
 
-            <div class="ui error message"></div>
+            <div class="ui mini error message"></div>
+            <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+            <div class="ui mini negative message" th:text="${message}" th:unless="${#strings.isEmpty(message)}"></div>
 
         </form>
 
-        <div class="ui message my-text">
-            New to us? <a href="#">Sign Up</a>
-        </div>
+<!--        <div class="ui message my-text">-->
+<!--            New to us? <a href="#">Sign Up</a>-->
+<!--        </div> not now-->
     </div>
 </div>
 
-<!-- jQuery first, then semantic UI -->
-<script
-        src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--<footer th:replace="_fragments :: footer"></footer>-->
+
+<div th:replace="_fragments :: basic_scripts"></div>
 <script>
     $(document)
         .ready(function() {
             $('.ui.form')
                 .form({
                     fields: {
-                        email: {
-                            identifier  : 'email',
+                        username: {
+                            identifier  : 'username',
                             rules: [
                                 {
                                     type   : 'empty',
-                                    prompt : 'Please enter your e-mail'
-                                },
-                                {
-                                    type   : 'email',
-                                    prompt : 'Please enter a valid e-mail'
+                                    prompt : 'Please enter your username'
                                 }
                             ]
                         },

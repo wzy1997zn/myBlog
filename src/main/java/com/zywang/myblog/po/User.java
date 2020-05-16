@@ -1,4 +1,4 @@
-package com.zywang.myblog.dao;
+package com.zywang.myblog.po;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class User {
     private Long id;
 
     private String nickname;
-    private String userName;
+    private String username;
     private String password;
     private String email;
     private String avatar;
@@ -41,12 +41,12 @@ public class User {
         this.nickname = nickname;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getPassword() {
@@ -110,7 +110,7 @@ public class User {
         return "user{" +
                 "id=" + id +
                 ", nickname='" + nickname + '\'' +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", avatar='" + avatar + '\'' +

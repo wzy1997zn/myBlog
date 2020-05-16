@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--navigator-->
+    <nav th:fragment="admin_nav(cur_active, username)" class="ui inverted attached segment my-shadow">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu my-padded-tb-xs">
+                <h2 class="ui teal header item">manageBlog</h2>
+                <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'home'} ? 'active'" th:href="@{/admin/blogs}"><i class="home icon"></i>Blogs</a>
+                <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'category'} ? 'active'"><i class="idea icon"></i>Categories</a>
+                <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'tag'} ? 'active'"><i class="tags icon"></i>Tags</a>
+                <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'info'} ? 'active'"><i class="info icon"></i>My info</a>
+                <div class="my-menu-item right menu my-mobile-hide">
+                    <div class="ui dropdown item">
+                        <div class="text">
+                            <img src="https://picsum.photos/seed/head/100/100" alt="" class="ui avatar image">
+                            <span th:text="${username}" ></span>
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" th:href="@{/admin/logout}" class="item">log out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui black icon button my-top-right my-mobile-show" id="menu_toggle">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head('Login in successful')">
+</head>
+<body>
+<!--navigator-->
+<nav th:replace="admin/_fragments :: admin_nav('home', 'Ziyue Wang')"></nav>
+
+<!--main body-->
+<div class="my-container-s my-padded-tb-l">
+    <div class="ui container">
+        <div class="ui success large message my-shadow my-padded-lr-responsive">
+            <h3>Hi,</h3>
+            <p>Ziyue Wang. Welcome back!</p>
+        </div>
+    </div>
+    <br/>
+    <img src="https://picsum.photos/id/0/1000/400" alt="" class="src ui rounded bordered fluid image my-shadow">
+
+</div>
+
+<!--footer-->
+<footer th:replace="_fragments :: footer">
+</footer>
+
+<div th:replace="_fragments :: basic_scripts"></div>
+<script>
+    $("#menu_toggle").click(function () {
+        $('.my-menu-item').toggleClass('my-mobile-hide')
+    });
+
+    $('.ui.dropdown').dropdown();
+</script>
+</body>
+</html>

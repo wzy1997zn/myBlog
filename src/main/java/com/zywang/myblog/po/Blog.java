@@ -1,4 +1,4 @@
-package com.zywang.myblog.dao;
+package com.zywang.myblog.po;
 
 import javax.persistence.*;
 import java.util.ArrayList;

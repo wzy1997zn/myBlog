@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head('manageCategory')">
+</head>
+<body>
+    <!--navigator-->
+    <nav th:replace="admin/_fragments :: admin_nav('category')"></nav>
+
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+            <div class="right menu">
+                <a href="#" class="item">Edit</a>
+                <a href="#" class="active teal item">List</a>
+            </div>
+        </div>
+    </div>
+    <!--main body-->
+    <div class="my-padded-tb-l">
+        <div class="ui container">
+
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Category name</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="category,iterStat : ${page.content}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${category.name}">placeholder1</td>
+                        <td>
+                            <a href="#" th:href="@{/admin/category/{id}/input(id=${category.id})}" class="ui basic small teal button">edit</a>
+                            <a href="#" th:href="@{/admin/category/{id}/delete(id=${category.id})}" class="ui basic small red button">delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="6">
+                            <div class="ui pagination small menu" th:if="${page.totalPages}>1">
+                                <a th:href="@{/admin/categories(page=${page.number}-1)}" th:unless="${page.first}" class="icon item my-button-width">
+                                    <i class="left chevron icon"></i>
+                                    <div class="my-padded-lr-ms">Previous</div>
+                                </a>
+                                <a th:href="@{/admin/categories(page=${page.number}+1)}" th:unless="${page.last}" class="icon item my-button-width">
+                                    <div class="my-padded-lr-ms">Next</div>
+                                    <i class="right chevron icon"></i>
+                                </a>
+                            </div>
+                            <a href="#" th:href="@{/admin/category/input}" class="ui small right floated teal basic button">New</a>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        
+    </div>
+
+    <!--footer-->
+    <footer th:replace="_fragments :: footer"></footer>
+    <div th:replace="_fragments :: basic_scripts"></div>
+    <script>
+        $("#menu_toggle").click(function () {
+            $('.my-menu-item').toggleClass('my-mobile-hide')
+        });
+
+        $('.ui.dropdown').dropdown();
+    </script>
+</body>
+</html>

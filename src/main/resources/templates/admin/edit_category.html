@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head('editCategory')"></head>
+<body>
+    <!--navigator-->
+    <nav th:replace="admin/_fragments :: admin_nav('category')"></nav>
+
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+            <div class="right menu">
+                <a href="#" class="active teal item">Edit</a>
+                <a href="#" class="item">List</a>
+            </div>
+        </div>
+    </div>
+    <!--main body-->
+    <div class="my-padded-tb-l">
+        <div class="ui container">
+            <form action="#" method="post" th:action="@{/admin/category}" class="ui form">
+                <div class="field">
+                    <div class="ui left labeled input">
+                        <label for="categoryName" class="ui teal basic label">Name</label>
+                        <input type="text" id="categoryName" name="name" placeholder="category name">
+                    </div>
+                </div>
+
+                <div class="ui error message"></div>
+
+                <div class="ui right aligned container">
+                    <button type="button" class="ui button" onclick="window.history.go(-1)">Return</button>
+                    <button class="ui teal submit button">Publish</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+    <!--footer-->
+    <footer th:replace="_fragments :: footer"></footer>
+    <div th:replace="_fragments :: basic_scripts"></div>
+
+    <script>
+
+
+        $("#menu_toggle").click(function () {
+            $('.my-menu-item').toggleClass('my-mobile-hide')
+        });
+
+        $('.ui.dropdown').dropdown();
+
+    </script>
+</body>
+</html>

@@ -22,7 +22,7 @@ public class TestController {
 //            throw new NotFoundException("Blog not found.");
 //        }
 //        int i = 9/0;
-        return "admin/index";
+        return "admin/edit_category";
     }
 
     @GetMapping("/logTest/{id}/{name}")

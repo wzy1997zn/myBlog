@@ -10,6 +10,8 @@ public interface CategoryService {
 
     Category getCategory(Long id);
 
+    Category getCategoryByName(String name);
+
     Page<Category> listCategories(Pageable pageable);
 
     Category updateCategory(Long id, Category category);

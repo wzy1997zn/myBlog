@@ -29,6 +29,11 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public Category getCategoryByName(String name) {
+        return categoryRepository.findByName(name);
+    }
+
     @Transactional
     @Override
     public Page<Category> listCategories(Pageable pageable) {

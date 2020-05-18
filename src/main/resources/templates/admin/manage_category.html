@@ -9,15 +9,20 @@
     <div class="ui attached pointing menu">
         <div class="ui container">
             <div class="right menu">
-                <a href="#" class="item">Edit</a>
-                <a href="#" class="active teal item">List</a>
+                <div class="item">Edit</div>
+                <div class="active teal item">List</div>
             </div>
         </div>
     </div>
     <!--main body-->
     <div class="my-padded-tb-l">
         <div class="ui container">
-
+            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">info:</div>
+                <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+                <p th:text="${message}">Succeed!</p>
+            </div>
             <table class="ui celled table">
                 <thead>
                     <tr>
@@ -67,6 +72,11 @@
         });
 
         $('.ui.dropdown').dropdown();
+
+    //    message box closable
+        $('.message .close').on('click', function () {
+            $(this).closest('.message').transition('fade');
+        });
     </script>
 </body>
 </html>

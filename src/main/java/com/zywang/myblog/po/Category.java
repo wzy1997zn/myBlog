@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Category {
     @Id
     @GeneratedValue
     private Long id;
-
+    @NotBlank(message = "Name should not be empty.")
     private String name;
 
     @OneToMany(mappedBy = "category")

@@ -12,7 +12,7 @@
                 <h2 class="ui teal header item">manageBlog</h2>
                 <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'home'} ? 'active'" th:href="@{/admin/blogs}"><i class="home icon"></i>Blogs</a>
                 <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'category'} ? 'active'" th:href="@{/admin/categories}"><i class="idea icon"></i>Categories</a>
-                <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'tag'} ? 'active'"><i class="tags icon"></i>Tags</a>
+                <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'tag'} ? 'active'" th:href="@{/admin/tags}"><i class="tags icon"></i>Tags</a>
                 <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'info'} ? 'active'"><i class="info icon"></i>My info</a>
                 <div class="my-menu-item right menu my-mobile-hide">
                     <div class="ui dropdown item">

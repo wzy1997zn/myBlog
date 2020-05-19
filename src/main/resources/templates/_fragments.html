@@ -24,7 +24,7 @@
         <div class="ui container">
             <div class="ui inverted secondary stackable menu my-padded-tb-xs">
                 <h2 class="ui teal header item">myBlog</h2>
-                <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'home'} ? 'active'"><i class="home icon"></i>Home</a>
+                <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'home'} ? 'active'" th:href="@{/}"><i class="home icon"></i>Home</a>
                 <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'categories'} ? 'active'"><i class="idea icon"></i>Categories</a>
                 <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'tags'} ? 'active'"><i class="tags icon"></i>Tags</a>
                 <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'history'} ? 'active'"><i class="folder open icon"></i>History</a>

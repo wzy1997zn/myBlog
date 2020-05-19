@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head('editTag')"></head>
+<body>
+    <!--navigator-->
+    <nav th:replace="admin/_fragments :: admin_nav('tag')"></nav>
+
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+            <div class="right menu">
+                <div class="active teal item">Edit</div>
+                <div class="item">List</div>
+            </div>
+        </div>
+    </div>
+    <!--main body-->
+    <div class="my-padded-tb-l">
+        <div class="ui container">
+            <!--/*@thymesVar id="tag" type="com.zywang.myblog.po.Tag"*/-->
+            <form action="#" class="ui form" method="post" th:object="${tag}"
+                  th:action="*{id}==null ? @{/admin/tag} : @{/admin/tag/{id}(id=*{id})} ">
+                <div class="required field">
+                    <div class="ui left labeled input">
+                        <label for="tagName" class="ui teal basic label">Name</label>
+                        <input type="text" id="tagName" name="name" placeholder="tag name" th:value="*{name}">
+                    </div>
+                </div>
+
+                <div class="ui error message"></div>
+                <!--/*/
+                <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                    <i class="close icon"></i>
+                    <div class="header">Validation failed:</div>
+                    <p th:errors="*{name}">Bad input.</p>
+                </div>
+                /*/-->
+
+                <div class="ui right aligned container">
+                    <button type="button" class="ui button" onclick="window.history.go(-1)">Return</button>
+                    <button class="ui teal submit button">Publish</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+    <!--footer-->
+    <footer th:replace="_fragments :: footer"></footer>
+    <div th:replace="_fragments :: basic_scripts"></div>
+
+    <script>
+
+
+        $("#menu_toggle").click(function () {
+            $('.my-menu-item').toggleClass('my-mobile-hide')
+        });
+
+        $('.ui.dropdown').dropdown();
+
+        $('.ui .form').form({
+            fields: {
+                title : {
+                    identifier: 'name',
+                    rules: [{
+                        type : 'empty',
+                        prompt: 'Please input category name.'
+                    }]
+                }
+            }
+        })
+
+        //    message box closable
+        $('.message .close').on('click', function () {
+            $(this).closest('.message').transition('fade');
+        });
+
+    </script>
+</body>
+</html>

@@ -143,33 +143,33 @@ body{background:url(yourbackgroundpattern.png);}
 
 ### 3.1 Dependencies
 
-#### basic:
+#### basic
 
 ```xml
 spring-boot-starter-web
 spring-boot-starter-test
 ```
 
-#### template engine:
+#### template engine
 
 ```xml
 spring-boot-starter-thymeleaf
 ```
 
-#### data:
+#### data
 
 ```xml
 spring-boot-starter-data-jpa
 mysql-connector-java
 ```
 
-#### AOP:
+#### AOP
 
 ```xml
 spring-boot-starter-aop
 ```
 
-#### develop tool:
+#### develop tool
 
 ```xml
 spring-boot-devtools
@@ -177,7 +177,7 @@ spring-boot-devtools
 
 ### 3.2 application.yml
 
-#### database:
+#### database
 
 ```yml
 spring:
@@ -196,7 +196,7 @@ Without *serverTimezone=UTC* , springboot will throw some error.  But I am not s
 
 Set *ddl-auto* to **update** is asking jpa to update the database when something not consistent.
 
-#### logging:
+#### logging
 
 ```yml
 logging:
@@ -474,3 +474,223 @@ public class InterceptorConfigurer implements WebMvcConfigurer {
 ```
 
 So far, most things about backend of user login part have done. Related web pages  will not be explained here :)
+
+### 3.8 Category and Tag part
+
+Here is a typical structure to build a CRUD subsystem of a table in DB with Spring Boot.
+
+#### PO
+
+Has described above.
+
+#### DAO
+
+```java
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+    Category findByName(String name);
+}
+```
+
+To check whether there is same category, define an additional method findByName().
+
+#### Service
+
+```java
+public interface CategoryService {
+
+    Category saveCategory(Category category);
+
+    Category getCategory(Long id);
+
+    Category getCategoryByName(String name);
+
+    Page<Category> listCategories(Pageable pageable);
+
+    Category updateCategory(Long id, Category category);
+
+    void deleteCategory(Long id);
+}
+```
+
+Define such services. Use Page and Pageable to realize “10 item a page”.
+
+```java
+@Service
+public class CategoryServiceImpl implements CategoryService {
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Transactional
+    @Override
+    public Category saveCategory(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    @Transactional
+    @Override
+    public Category getCategory(Long id) {
+        return categoryRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        return categoryRepository.findByName(name);
+    }
+
+    @Transactional
+    @Override
+    public Page<Category> listCategories(Pageable pageable) {
+        return categoryRepository.findAll(pageable);
+    }
+
+    @Transactional
+    @Override
+    public Category updateCategory(Long id, Category category) {
+        // Updating have to be based on item already exist.
+        Category c = categoryRepository.findById(id).orElse(null);
+        if (c == null) {
+            throw new NotFoundException("No such category");
+        }
+        BeanUtils.copyProperties(category, c);
+        return categoryRepository.save(c);
+    }
+
+    @Transactional
+    @Override
+    public void deleteCategory(Long id) {
+        categoryRepository.deleteById(id);
+    }
+}
+```
+
+Use *@Transactional* to realize the transaction operation.
+
+#### Controller
+
+```java
+@Controller
+@RequestMapping("/admin")
+public class CategoryController {
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @GetMapping("/categories")
+    public String listCategories(@PageableDefault(size = 2, sort = {"id"},direction = Sort.Direction.DESC)
+                                             Pageable pageable, Model model) {
+        model.addAttribute("page", categoryService.listCategories(pageable));
+        return "admin/manage_category";
+    }
+
+    @GetMapping("/category/input")
+    public String input(Model model) {
+        model.addAttribute("category", new Category());
+        return "admin/edit_category";
+    }
+    @GetMapping("/category/{id}/input")
+    public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("category", categoryService.getCategory(id));
+        return "admin/edit_category";
+    }
+
+    @PostMapping("/category")
+    public String post(@Valid Category category, BindingResult result, RedirectAttributes attributes) {
+        Category category1 = categoryService.getCategoryByName(category.getName());
+        if (category1 != null) {
+            // duplicated
+            result.rejectValue("name", "nameError", category.getName() + " already exists.");
+            // define reject error: related field, error name, message.
+        }
+        if (result.hasErrors()) {
+            return "admin/edit_category";
+        }
+        Category c = categoryService.saveCategory(category);
+        if (c == null) {
+            // failed
+            attributes.addFlashAttribute("message", "Option failed");
+        } else {
+            // success
+            attributes.addFlashAttribute("message", "Succeed!");
+        }
+        return "redirect:/admin/categories";
+    }
+
+    @PostMapping("/category/{id}")
+    public String post(@Valid Category category, BindingResult result, @PathVariable Long id, RedirectAttributes attributes) {
+        Category category1 = categoryService.getCategoryByName(category.getName());
+        if (category1 != null) {
+            // duplicated
+            result.rejectValue("name", "nameError", category.getName() + " already exists.");
+            // define reject error: related field, error name, message.
+        }
+        if (result.hasErrors()) {
+            return "admin/edit_category";
+        }
+        Category c = categoryService.updateCategory(id, category);
+        if (c == null) {
+            // failed
+            attributes.addFlashAttribute("message", "Option failed");
+        } else {
+            // success
+            attributes.addFlashAttribute("message", "Succeed!");
+        }
+        return "redirect:/admin/categories";
+    }
+
+    @GetMapping("/category/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+        categoryService.deleteCategory(id);
+        attributes.addFlashAttribute("message", "Succeed!");
+        return "redirect:/admin/categories";
+    }
+}
+```
+
+Maybe restful design is better. But considering my poor frontend... I believe it is easier to realize with some front-back split framework.
+
+#### Web page
+
+Below are only parts of thymeleaf templates. It can be better to use Vue.js or something similar.
+
+**List**
+
+Use *th:each* to generate the table automatically.
+
+```html
+<tbody>
+    <tr th:each="category,iterStat : ${page.content}">
+        <td th:text="${iterStat.count}">1</td>
+        <td th:text="${category.name}">placeholder1</td>
+        <td>
+            <a href="#" th:href="@{/admin/category/{id}/input(id=${category.id})}" class="ui basic small teal button">edit</a>
+            <a href="#" th:href="@{/admin/category/{id}/delete(id=${category.id})}" class="ui basic small red button">delete</a>
+        </td>
+    </tr>
+</tbody>
+```
+
+**Edit Form**
+
+Using *th:if* is a good way to implement reuse of edit page for updating and creating. If id is given, then update, else create.
+
+```html
+<form action="#" class="ui form" method="post" th:object="${category}"
+      th:action="*{id}==null ? @{/admin/category} : @{/admin/category/{id}(id=*{id})} ">
+    <div class="required field">
+        <div class="ui left labeled input">
+            <label for="categoryName" class="ui teal basic label">Name</label>
+            <input type="text" id="categoryName" name="name" placeholder="category name" th:value="*{name}">
+        </div>
+    </div>
+
+    <div class="ui error message"></div>
+
+    <div class="ui right aligned container">
+        <button type="button" class="ui button" onclick="window.history.go(-1)">Return</button>
+        <button class="ui teal submit button">Publish</button>
+    </div>
+</form>
+```
+
+Using *th:if* is a good way to implement reuse of edit page for updating and creating. If id is given, then update, else create.

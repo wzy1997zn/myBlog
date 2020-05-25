@@ -117,7 +117,7 @@ public class Blog {
         return isPublished;
     }
 
-    public void setPublished(boolean published) {
+    public void setIsPublished(boolean published) {
         isPublished = published;
     }
 
@@ -125,7 +125,7 @@ public class Blog {
         return isRecommended;
     }
 
-    public void setRecommended(boolean recommended) {
+    public void setIsRecommended(boolean recommended) {
         isRecommended = recommended;
     }
 

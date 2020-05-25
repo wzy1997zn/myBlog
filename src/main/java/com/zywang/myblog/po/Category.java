@@ -1,5 +1,8 @@
 package com.zywang.myblog.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,12 +15,15 @@ import java.util.List;
 public class Category {
 
     @Id
+    @JsonProperty("value")
     @GeneratedValue
     private Long id;
+
     @NotBlank(message = "Name should not be empty.")
     private String name;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Blog> blogs = new ArrayList<>();
 
     public Category() {

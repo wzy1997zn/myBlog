@@ -17,37 +17,39 @@
     <!--main body-->
     <div class="my-padded-tb-l">
         <div class="ui container">
-            <form action="#" method="post" class="ui segment form">
+            <div class="ui secondary segment form">
+                <input type="hidden" name="page">
                 <div class="inline fields">
                     <div class="field">
                         <input type="text" name="title" placeholder="title">
                     </div>
                     <div class="field">
-                        <div class="ui selection dropdown">
-                            <input type="hidden" name="category">
+                        <div class="ui search selection dropdown" id="category-dropdown">
+                            <input type="hidden" name="categoryId">
                             <i class="dropdown icon"></i>
                             <div class="default text">Category</div>
                             <div class="menu">
-                                <div class="item" data-value="1">Coding</div>
-                                <div class="item" data-value="2">Thinking</div>
-                                <div class="item" data-value="3">Gaming</div>
+<!--                                <div class="item" data-value="1">Coding</div>-->
+<!--                                <div class="item" data-value="2">Thinking</div>-->
+<!--                                <div class="item" data-value="3">Gaming</div>-->
                             </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui checkbox">
-                            <input type="checkbox" id="recommend" name="recommend">
-                            <label for="recommend">recommend</label>
+                            <input type="checkbox" id="isRecommended" name="isRecommended">
+                            <label for="isRecommended">recommend</label>
                         </div>
                     </div>
                     <div class="field">
-                        <button class="ui teal basic button"><i class="search icon"></i>Search</button>
+                        <button type="button" id="search-btn" class="ui teal basic button"><i class="search icon"></i>Search</button>
                     </div>
                 </div>
-            </form>
+            </div>
 
-            <table class="ui celled table">
-                <thead>
+            <div id="table-container">
+                <table th:fragment="blogList" class="ui compact teal table">
+                    <thead>
                     <tr>
                         <th></th>
                         <th>Title</th>
@@ -56,49 +58,41 @@
                         <th>Update Time</th>
                         <th>Options</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Placeholder</td>
-                        <td>useful tools</td>
-                        <td>Yes</td>
-                        <td>04/19/2020 18:00</td>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="blog, iterStat: ${page.content}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${blog.title}">Placeholder</td>
+                        <td th:text="${blog.category.name}">useful tools</td>
+                        <td th:text="${blog.isRecommended} ? 'Yes' : 'No'">Yes</td>
+                        <td th:text="${blog.updateTime}">04/19/2020 18:00</td>
                         <td>
-                            <a href="#" class="ui basic small teal button">edit</a>
-                            <a href="#" class="ui basic small red button">delete</a>
+                            <a href="#" th:href="@{/admin/blog/{id}/input(id=${blog.id})}" class="ui basic small teal button">edit</a>
+                            <a href="#" th:href="@{/admin/blog/{id}/delete(id=${blog.id})}" class="ui basic small red button">delete</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Placeholder2</td>
-                        <td>useful tools</td>
-                        <td>No</td>
-                        <td>04/19/2020 18:35</td>
-                        <td>
-                            <a href="#" class="ui basic small teal button">edit</a>
-                            <a href="#" class="ui basic small red button">delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
+                    </tbody>
+                    <tfoot>
                     <tr>
                         <th colspan="6">
-                            <div class="ui pagination small menu">
-                                <a class="icon item my-button-width">
+                            <div class="ui pagination small menu" th:if="${page.totalPages}>1">
+                                <a onclick="page(this)" th:attr="data-page=${page.number}-1" th:unless="${page.first}" class="icon item my-button-width">
                                     <i class="left chevron icon"></i>
                                     <div class="my-padded-lr-ms">Previous</div>
                                 </a>
-                                <a class="icon item my-button-width">
+                                <a onclick="page(this)" th:attr="data-page=${page.number}+1" th:unless="${page.last}" class="icon item my-button-width">
                                     <div class="my-padded-lr-ms">Next</div>
                                     <i class="right chevron icon"></i>
                                 </a>
                             </div>
-                            <a href="#" class="ui small right floated teal basic button">New</a>
+                            <a href="#" th:href="@{/admin/category/input}" class="ui small right floated teal basic button">New</a>
                         </th>
                     </tr>
-                </tfoot>
-            </table>
+                    </tfoot>
+                </table>
+            </div>
+
         </div>
         
     </div>
@@ -112,6 +106,31 @@
         });
 
         $('.ui.dropdown').dropdown();
+
+        $("#category-dropdown").dropdown({
+            clearable: true,
+            apiSettings: {
+                url: '/api/categories'
+            },
+        });
+
+        function page(obj) {
+            $("[name='page']").val($(obj).data("page"));
+            load_data();
+        }
+
+        $("#search-btn").click(function () {
+            load_data();
+        });
+
+        function load_data() {
+            $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
+                title : $("[name='title']").val(),
+                categoryId : $("[name='categoryId']").val(),
+                isRecommended : $("[name='isRecommended']").prop('checked'),
+                page : $("[name='page']").val(),
+            })
+        }
     </script>
 </body>
 </html>

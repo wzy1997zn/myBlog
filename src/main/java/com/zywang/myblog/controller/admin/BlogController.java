@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class BlogController {
 
+//    private static final String INPUT = "";
+
     @Autowired
     private BlogService blogService;
 
@@ -31,5 +33,11 @@ public class BlogController {
     public String searchBlogs(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
         model.addAttribute("page", blogService.listBlog(pageable,blog));
         return "admin/manage_blog :: blogList"; // return this thymeleaf fragment
+    }
+
+    @GetMapping("blog/input")
+    public String input(Model model) {
+        model.addAttribute("blog", new Blog());
+        return "admin/edit_blog";
     }
 }

@@ -1,5 +1,8 @@
 package com.zywang.myblog.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,10 +15,12 @@ public class Tag {
 
     @Id
     @GeneratedValue
+    @JsonProperty("value")
     private Long id;
 
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "tags")
     private List<Blog> blogs = new ArrayList<>();
 

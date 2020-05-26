@@ -30,6 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     @Override
     public Category getCategoryByName(String name) {
         return categoryRepository.findByName(name);
@@ -41,6 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll(pageable);
     }
 
+    @Transactional
     @Override
     public List<Category> listAllCategories() {
         return categoryRepository.findAll();

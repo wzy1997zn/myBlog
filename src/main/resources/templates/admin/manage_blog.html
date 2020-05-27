@@ -25,7 +25,7 @@
                     </div>
                     <div class="field">
                         <div class="ui search selection dropdown" id="category-dropdown">
-                            <input type="hidden" name="categoryId">
+                            <input type="hidden" name="category.id">
                             <i class="dropdown icon"></i>
                             <div class="default text">Category</div>
                             <div class="menu">
@@ -44,6 +44,9 @@
                     <div class="field">
                         <button type="button" id="search-btn" class="ui teal basic button"><i class="search icon"></i>Search</button>
                     </div>
+                    <div class="ui button" id="clear-btn">
+                        Clear
+                    </div>
                 </div>
             </div>
 
@@ -55,6 +58,7 @@
                         <th>Title</th>
                         <th>Category</th>
                         <th>Recommend</th>
+                        <th>State</th>
                         <th>Update Time</th>
                         <th>Options</th>
                     </tr>
@@ -66,6 +70,7 @@
                         <td th:text="${blog.title}">Placeholder</td>
                         <td th:text="${blog.category.name}">useful tools</td>
                         <td th:text="${blog.isRecommended} ? 'Yes' : 'No'">Yes</td>
+                        <td th:text="${blog.isPublished} ? 'Published' : 'Draft'">Yes</td>
                         <td th:text="${blog.updateTime}">04/19/2020 18:00</td>
                         <td>
                             <a href="#" th:href="@{/admin/blog/{id}/input(id=${blog.id})}" class="ui basic small teal button">edit</a>
@@ -74,23 +79,30 @@
                     </tr>
                     </tbody>
                     <tfoot>
-                    <tr>
-                        <th colspan="6">
-                            <div class="ui pagination small menu" th:if="${page.totalPages}>1">
-                                <a onclick="page(this)" th:attr="data-page=${page.number}-1" th:unless="${page.first}" class="icon item my-button-width">
-                                    <i class="left chevron icon"></i>
-                                    <div class="my-padded-lr-ms">Previous</div>
-                                </a>
-                                <a onclick="page(this)" th:attr="data-page=${page.number}+1" th:unless="${page.last}" class="icon item my-button-width">
-                                    <div class="my-padded-lr-ms">Next</div>
-                                    <i class="right chevron icon"></i>
-                                </a>
-                            </div>
-                            <a href="#" th:href="@{/admin/blog/input}" class="ui small right floated teal basic button">New</a>
-                        </th>
-                    </tr>
+                        <tr>
+                            <th colspan="7">
+                                <div class="ui pagination small menu" th:if="${page.totalPages}>1">
+                                    <a onclick="page(this)" th:attr="data-page=${page.number}-1" th:unless="${page.first}" class="icon item my-button-width">
+                                        <i class="left chevron icon"></i>
+                                        <div class="my-padded-lr-ms">Previous</div>
+                                    </a>
+                                    <a onclick="page(this)" th:attr="data-page=${page.number}+1" th:unless="${page.last}" class="icon item my-button-width">
+                                        <div class="my-padded-lr-ms">Next</div>
+                                        <i class="right chevron icon"></i>
+                                    </a>
+                                </div>
+                                <a href="#" th:href="@{/admin/blog/input}" class="ui small right floated teal basic button">New</a>
+                            </th>
+                        </tr>
                     </tfoot>
                 </table>
+
+                <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                    <i class="close icon"></i>
+                    <div class="header">info:</div>
+                    <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+                    <p th:text="${message}">Succeed!</p>
+                </div>
             </div>
 
         </div>
@@ -120,17 +132,29 @@
         }
 
         $("#search-btn").click(function () {
+            $("[name='page']").val(0);
             load_data();
         });
+
+        $("#clear-btn").on('click', function () {
+            $("[name='title']").val('');
+            $('.form .dropdown').dropdown('clear');
+            $('.form .checkbox').checkbox('uncheck');
+        })
 
         function load_data() {
             $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
                 title : $("[name='title']").val(),
-                categoryId : $("[name='categoryId']").val(),
+                categoryId : $("[name='category.id']").val(),
                 isRecommended : $("[name='isRecommended']").prop('checked'),
                 page : $("[name='page']").val(),
             })
         }
+
+        //    message box closable
+        $('.message .close').on('click', function () {
+            $(this).closest('.message').transition('fade');
+        });
     </script>
 </body>
 </html>

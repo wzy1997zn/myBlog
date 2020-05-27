@@ -18,6 +18,8 @@ public interface TagService {
 
     List<Tag> listAllTags();
 
+    List<Tag> listTags(String ids);
+
     Tag updateTag(Long id, Tag tag);
 
     void deleteTag(Long id);

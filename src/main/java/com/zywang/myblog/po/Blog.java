@@ -12,6 +12,9 @@ public class Blog {
     private Long id;
 
     private String title;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob // for long text
     private String content;
     private String coverPicture;
     private String flag; //origin,reproduce...
@@ -25,6 +28,9 @@ public class Blog {
     private Date createdTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
+
+    @Transient // will not appear in database
+    private String tagIds;
 
     @ManyToOne
     private Category category;
@@ -113,7 +119,7 @@ public class Blog {
         this.canComment = canComment;
     }
 
-    public boolean isPublished() {
+    public boolean getIsPublished() {
         return isPublished;
     }
 
@@ -121,7 +127,7 @@ public class Blog {
         isPublished = published;
     }
 
-    public boolean isRecommended() {
+    public boolean getIsRecommended() {
         return isRecommended;
     }
 
@@ -175,6 +181,14 @@ public class Blog {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
     }
 
     @Override

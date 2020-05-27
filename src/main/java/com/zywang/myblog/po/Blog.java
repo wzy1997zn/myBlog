@@ -191,6 +191,24 @@ public class Blog {
         this.tagIds = tagIds;
     }
 
+    public String initTagIds() {
+        if (tagIds != null || tags.isEmpty()) {
+            return tagIds;
+        }
+        StringBuffer ids = new StringBuffer();
+        boolean flag = false;
+        for (Tag tag:
+             tags) {
+            if (flag) {
+                ids.append(",");
+            } else {
+                flag =true;
+            }
+            ids.append(tag.getId());
+        }
+        tagIds = ids.toString();
+        return tagIds;
+    }
     @Override
     public String toString() {
         return "Blog{" +

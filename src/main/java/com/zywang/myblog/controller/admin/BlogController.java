@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,6 +38,7 @@ public class BlogController {
 
     @GetMapping("/blogs")
     public String listBlogs(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
+        getCategoriesAndTags(model);
         model.addAttribute("page", blogService.listBlog(pageable,blog));
         return "admin/manage_blog";
     }
@@ -49,7 +51,17 @@ public class BlogController {
 
     @GetMapping("blog/input")
     public String input(Model model) {
+        getCategoriesAndTags(model);
         model.addAttribute("blog", new Blog());
+        return "admin/edit_blog";
+    }
+
+    @GetMapping("blog/{id}/input")
+    public String editInput(@PathVariable Long id, Model model) {
+        getCategoriesAndTags(model);
+        Blog blog = blogService.getBlog(id);
+        blog.initTagIds();
+        model.addAttribute("blog", blog);
         return "admin/edit_blog";
     }
 
@@ -59,7 +71,13 @@ public class BlogController {
         blog.setUser((User)session.getAttribute("user"));
         blog.setCategory(categoryService.getCategory(blog.getCategory().getId()));
         blog.setTags(tagService.listTags(blog.getTagIds()));
-        Blog b = blogService.saveBlog(blog);
+        Blog b;
+        if (blog.getId() == null) {
+            b = blogService.saveBlog(blog);
+        } else {
+            b = blogService.updateBlog(blog.getId(), blog);
+        }
+
         if (b == null) {
             // failed
             attributes.addFlashAttribute("message", "Option failed");
@@ -68,5 +86,10 @@ public class BlogController {
             attributes.addFlashAttribute("message", "Succeed!");
         }
         return "redirect:/admin/blogs";
+    }
+
+    private void getCategoriesAndTags(Model model) {
+        model.addAttribute("category_list", categoryService.listAllCategories());
+        model.addAttribute("tag_list", tagService.listAllTags());
     }
 }

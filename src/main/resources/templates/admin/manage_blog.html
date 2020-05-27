@@ -32,6 +32,7 @@
 <!--                                <div class="item" data-value="1">Coding</div>-->
 <!--                                <div class="item" data-value="2">Thinking</div>-->
 <!--                                <div class="item" data-value="3">Gaming</div>-->
+                                <div th:each="category: ${category_list}" class="item" th:data-value="${category.id}" th:text="${category.name}"></div>
                             </div>
                         </div>
                     </div>
@@ -121,9 +122,9 @@
 
         $("#category-dropdown").dropdown({
             clearable: true,
-            apiSettings: {
-                url: '/api/categories'
-            },
+            // apiSettings: {
+            //     url: '/api/categories'
+            // },
         });
 
         function page(obj) {

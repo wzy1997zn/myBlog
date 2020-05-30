@@ -75,11 +75,17 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public Blog updateBlog(Long id, Blog blog) {
+
         blog.setUpdateTime(new Date());
         Blog b = getBlog(id);
+
         if (b == null) {
             throw new NotFoundException("No such blog");
         }
+
+        blog.setCreatedTime(b.getCreatedTime());
+        blog.setViews(b.getViews());
+
         BeanUtils.copyProperties(blog,b);
         return blogRepository.save(b);
     }

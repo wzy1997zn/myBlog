@@ -16,6 +16,8 @@ public interface CategoryService {
 
     Page<Category> listCategories(Pageable pageable);
 
+    List<Category> listTopCategories(Integer size);
+
     List<Category> listAllCategories();
 
     Category updateCategory(Long id, Category category);

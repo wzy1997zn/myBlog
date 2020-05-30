@@ -4,6 +4,8 @@ import com.zywang.myblog.dao.BlogRepository;
 import com.zywang.myblog.exceptions.NotFoundException;
 import com.zywang.myblog.po.Blog;
 import com.zywang.myblog.po.Category;
+import com.zywang.myblog.util.DescriptionUtil;
+import com.zywang.myblog.util.MyBeanUtil;
 import com.zywang.myblog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,9 @@ public class BlogServiceImpl implements BlogService {
                 criteriaBuilder:for describing how to query         "HOW"
                  */
 
+                if (blogExample == null) {
+                    return null;
+                }
                 List<Predicate> predicates = new ArrayList<>();
                 //title like "%xxx"
                 if (!"".equals(blogExample.getTitle()) && blogExample.getTitle() != null) {
@@ -69,6 +74,7 @@ public class BlogServiceImpl implements BlogService {
         blog.setCreatedTime(new Date());
         blog.setUpdateTime(new Date());
         blog.setViews(0);
+        blog.setDescription(DescriptionUtil.generateDescription(blog.getContent()));
         return blogRepository.save(blog);
     }
 
@@ -83,10 +89,11 @@ public class BlogServiceImpl implements BlogService {
             throw new NotFoundException("No such blog");
         }
 
-        blog.setCreatedTime(b.getCreatedTime());
-        blog.setViews(b.getViews());
-
-        BeanUtils.copyProperties(blog,b);
+//        blog.setCreatedTime(b.getCreatedTime());
+//        blog.setViews(b.getViews());
+        blog.setDescription(DescriptionUtil.generateDescription(blog.getContent()));
+        //ignore properties with null value
+        BeanUtils.copyProperties(blog,b, MyBeanUtil.getNullPropertyNames(blog));
         return blogRepository.save(b);
     }
 

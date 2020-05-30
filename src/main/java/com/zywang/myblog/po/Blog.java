@@ -29,6 +29,8 @@ public class Blog {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
+    private String description;
+
     @Transient // will not appear in database
     private String tagIds;
 
@@ -183,6 +185,14 @@ public class Blog {
         this.comments = comments;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getTagIds() {
         return tagIds;
     }
@@ -225,6 +235,7 @@ public class Blog {
                 ", isRecommended=" + isRecommended +
                 ", createdTime=" + createdTime +
                 ", updateTime=" + updateTime +
+                ", description=" + description +
                 '}';
     }
 }

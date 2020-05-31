@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IndexController {
@@ -27,13 +29,29 @@ public class IndexController {
     private TagService tagService;
 
     @GetMapping("/")
-    public String index(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public String index(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         Model model) {
-        model.addAttribute("page", blogService.listBlog(pageable, null));
+        model.addAttribute("page", blogService.listBlog(pageable, (BlogQuery) null));
         model.addAttribute("categories", categoryService.listTopCategories(6));
         model.addAttribute("tags", tagService.listTopTags(10));
         model.addAttribute("recommendBlogs", blogService.listRecommendTop(8));
         return "index";
+    }
+
+    @PostMapping("/search")
+    public String search(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+                         @RequestParam String query, Model model){
+        model.addAttribute("page", blogService.listBlog(pageable,"%"+query+"%"));
+        model.addAttribute("query", query);
+        return "search";
+    }
+
+    @PostMapping("/searchAjax")
+    public String searchAjax(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+                         @RequestParam String query, Model model){
+        model.addAttribute("page", blogService.listBlog(pageable,"%"+query+"%"));
+        model.addAttribute("query", query);
+        return "search :: blogList";
     }
 
 }

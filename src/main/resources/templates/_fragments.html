@@ -31,11 +31,14 @@
                 <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'history'} ? 'active'"><i class="folder open icon"></i>History</a>
                 <a href="#" class="my-menu-item item my-mobile-hide" th:classappend="${cur_active == 'about'} ? 'active'"><i class="info icon"></i>About me</a>
                 <div class="my-menu-item right item my-mobile-hide">
-                    <div class="ui icon transparent inverted input">
-                        <label for="search"></label>
-                        <input type="text" placeholder="Search..." id="search">
-                        <i class="search link icon"></i>
-                    </div>
+                    <form name="search" action="" method="post" th:action="@{/search}" target="_blank">
+                        <div class="ui icon transparent inverted input">
+                            <input type="hidden" name="page">
+                            <label for="search"></label>
+                            <input type="text" name="query" placeholder="Search..." th:value="${query}" id="search">
+                            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

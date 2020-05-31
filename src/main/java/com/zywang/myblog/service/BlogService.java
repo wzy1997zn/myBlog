@@ -18,6 +18,8 @@ public interface BlogService {
      */
     Page<Blog> listBlog(Pageable pageable, BlogQuery blogExample);
 
+    Page<Blog> listBlog(Pageable pageable, String query);
+
     List<Blog> listRecommendTop(Integer size);
 
     Blog saveBlog(Blog blog);

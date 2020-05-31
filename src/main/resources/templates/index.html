@@ -17,46 +17,47 @@
                                 <h2 class="ui teal header my-text-spaced">Blog</h2>
                             </div>
                             <div class="right aligned column my-text-spaced">
-                                <h2 class="ui orange header my-inline-block my-text-thin"> 14 </h2>&nbsp; blogs in total
+                                <h2 class="ui orange header my-inline-block my-text-thin" th:text="${page.totalElements}"> 14 </h2>&nbsp; blogs in total
                             </div>
                         </div>
                     </div>
 <!--                content-->
                     <div class="ui attached segment">
-                        <div class="ui padded vertical segment my-padded-tb-ml">
+                        <div class="ui padded vertical segment my-padded-tb-ml" th:each="blog : ${page.content}">
                             <div class="ui middle aligned mobile reversed stackable grid">
                                 <div class="eleven wide column">
-                                    <h2 class="ui header">Beautiful placeholders from picsum.photos!</h2>
-                                    <p class="my-text">Just a url like https://picsum.photos/800/400 can give you a random beautiful
+                                    <h2 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" class="my-black" th:text="${blog.title}">Beautiful placeholders from picsum.photos!</a></h2>
+                                    <p class="my-text" th:text="${blog.description}">Just a url like https://picsum.photos/800/400 can give you a random beautiful
                                         picture with fixed size. You can also set your random seed to get same picture
                                         every time like this: https://picsum.photos/seed/yourseed/800/400. Try it!</p>
                                     <div class="ui grid">
                                         <div class="eleven wide column">
                                             <div class="ui horizontal link list">
                                                 <div class="item">
-                                                    <img src="https://picsum.photos/seed/head/100/100" alt="" class="ui avatar image">
-                                                    <div class="content"><a href="#" class="header my-text-thin">Ziyue Wang</a></div>
+                                                    <img src="https://picsum.photos/seed/head/100/100" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header my-text-thin" th:text="${blog.user.nickname}">Ziyue Wang</a></div>
                                                 </div>
                                                 <div class="item my-text-thin">
-                                                    <i class="calendar icon"></i> 4/14/2020
+                                                    <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}"> 4/14/2020</span>
                                                 </div>
                                                 <div class="item my-text-thin">
-                                                    <i class="eye icon"></i> 123
+                                                    <i class="eye icon"></i> <span th:text="${blog.views}"> 123</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="right aligned five wide column">
-                                            <a href="#" target="_blank" class="ui teal basic label my-padded-mini my-text-thin">useful tools</a>
+                                            <a href="#" target="_blank" class="ui teal basic label my-padded-mini my-text-thin" th:text="${blog.category.name}">useful tools</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="five wide column">
-                                    <a href="#" target="_blank">
-                                        <img src="https://picsum.photos/seed/laowang/800/400" alt="" class="ui rounded image">
+                                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                        <img src="https://picsum.photos/seed/laowang/800/400" th:src="@{${blog.coverPicture}}" alt="" class="ui rounded image">
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        <!--/*-->
                         <div class="ui padded vertical segment my-padded-tb-ml">
                             <div class="ui mobile reversed stackable grid">
                                 <div class="eleven wide column">
@@ -193,18 +194,19 @@
                                 </div>
                             </div>
                         </div>
+                        <!--*/-->
                     </div>
 
-                    <div class="ui bottom attached segment">
+                    <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
                         <div class="ui middle aligned two column grid">
                             <div class="column">
-                                <a href="#" class="ui teal basic button my-button-width">
+                                <a href="#" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" class="ui teal basic button my-button-width">
                                     <i class="left chevron icon"></i>
                                     Previous
                                 </a>
                             </div>
                             <div class="right aligned column">
-                                <a href="#" class="ui teal basic button my-button-width">
+                                <a href="#" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}" class="ui teal basic button my-button-width">
                                     Next
                                     <i class="right chevron icon"></i>
                                 </a>
@@ -226,9 +228,10 @@
                         </div>
                         <div class="ui teal segment">
                             <div class="ui fluid vertical menu">
-                                <a href="#" class="item">useful tools
-                                    <div class="ui teal basic label">13</div>
+                                <a href="#" class="item" th:each="category : ${categories}"><span th:text="${category.name}">useful tools</span>
+                                    <div class="ui teal basic label" th:text="${#arrays.length(category.blogs)}">13</div>
                                 </a>
+<!--/*-->
                                 <a href="#" class="item">study log
                                     <div class="ui teal basic label">12</div>
                                 </a>
@@ -238,6 +241,7 @@
                                 <a href="#" class="item">thinking
                                     <div class="ui teal basic label">10</div>
                                 </a>
+<!--*/-->
                             </div>
                         </div>
                     </div>
@@ -252,9 +256,11 @@
                             </div>
                         </div>
                         <div class="ui teal segment">
-                            <a href="#" target="_blank" class="ui teal basic left pointing label my-margin-tb-xs">
-                                design patten <div class="detail">23</div>
+                            <a href="#" target="_blank" class="ui teal basic left pointing label my-margin-tb-xs"
+                            th:each="tag : ${tags}">
+                                <span th:text="${tag.name}">design patten</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
                             </a>
+<!--/*-->
                             <a href="#" target="_blank" class="ui teal basic left pointing label my-margin-tb-xs">
                                 java <div class="detail">53</div>
                             </a>
@@ -282,6 +288,7 @@
                             <a href="#" target="_blank" class="ui teal basic left pointing label my-margin-tb-xs">
                                 design patten <div class="detail">21</div>
                             </a>
+<!--*/-->
                         </div>
                     </div>
 <!--                    recommended-->
@@ -291,9 +298,10 @@
                                 <div class="column"><i class="bookmark icon"></i>Recommended</div>
                             </div>
                         </div>
-                        <div class="ui segment">
-                            <a href="#" target="_blank" class="my-black my-text-thin">User story</a>
+                        <div class="ui segment" th:each="blog : ${recommendBlogs}">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="my-black my-text-thin" th:text="${blog.title}">User story</a>
                         </div>
+<!--/*-->
                         <div class="ui segment">
                             <a href="#" target="_blank" class="my-black my-text-thin">Beautiful placeholders from picsum.photos!</a>
                         </div>
@@ -315,6 +323,7 @@
                         <div class="ui segment">
                             <a href="#" target="_blank" class="my-black my-text-thin">Photos ...</a>
                         </div>
+<!--*/-->
                     </div>
 <!--                    QR code-->
                     <h4 class="ui horizontal divider header my-text-spaced my-black my-margin-top-m">scan and follow me</h4>

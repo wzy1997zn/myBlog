@@ -45,7 +45,7 @@ public class DescriptionUtil {
 
     public static String generateDescription(String md) {
         String text = html2txt(md2html(md));
-        String result = text.substring(0,140) + "...";
+        String result = text.length()>252?(text.substring(0,252) + "..."):text;
         return result;
     }
 

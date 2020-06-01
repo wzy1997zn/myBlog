@@ -12,32 +12,32 @@
 <!--                header-->
                 <div class="ui horizontal link list">
                     <div class="item">
-                        <img src="https://picsum.photos/seed/head/100/100" alt="" class="ui avatar image">
-                        <div class="content"><a href="#" class="header my-text-thin">Ziyue Wang</a></div>
+                        <img src="https://picsum.photos/seed/head/100/100" th:src="${blog.user.avatar}" alt="" class="ui avatar image">
+                        <div class="content"><a href="#" class="header my-text-thin" th:text="${blog.user.nickname}">Ziyue Wang</a></div>
                     </div>
                     <div class="item my-text-thin">
-                        <i class="calendar icon"></i> 4/14/2020
+                        <i class="calendar icon"></i><span class="my-text-thin" th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}"> 4/14/2020</span>
                     </div>
                     <div class="item my-text-thin">
-                        <i class="eye icon"></i> 123
+                        <i class="eye icon"></i> <span class="my-text-thin" th:text="${blog.views}"> 123</span>
                     </div>
                 </div>
             </div>
             <div class="ui attached segment">
 <!--                img-->
-                <img src="https://picsum.photos/seed/laowang/800/400" alt="" class="ui fluid rounded image">
+                <img src="https://picsum.photos/seed/laowang/800/400" th:src="@{${blog.coverPicture}}" alt="" class="ui fluid rounded image">
             </div>
             <div class="ui attached padded segment">
 <!--                content-->
                 <div class="ui right aligned basic segment">
-                    <div class="ui basic orange label">
+                    <div class="ui basic orange label" th:text="${blog.flag}">
                         reprint
                     </div>
                 </div>
 
-                <h2 class="ui center aligned header">Example blog</h2>
+                <h2 class="ui center aligned header" th:text="${blog.title}">Example blog</h2>
                 <br>
-                <div id="content" class=" typo typo-selection js-toc-content my-padded-lr-responsive my-padded-tb-l">
+                <div id="content" class=" typo typo-selection js-toc-content my-padded-lr-responsive my-padded-tb-l" th:utext="${blog.content}">
                     <h1 id="tagline" class="serif">一致化浏览器排版效果，构建最适合中文阅读的网页排版</h1>
 
                     <ol id="table">
@@ -421,12 +421,12 @@ h5,h6{font-size:1em;}
 <!--                tags-->
             <div class="ui attached teal segment">
                 <div class="my-padded-lr-responsive">
-                    <a href="#" class="ui basic teal right floated left pointing label">Java</a>
+                    <a href="#" th:each="tag : ${blog.tags}" th:href="@{/tag/{id}(id=${tag.id})}" class="ui basic teal right floated left pointing label" th:text="${tag.name}">Java</a>
                 </div>
 
 
 <!--                appreciation-->
-                <div class="ui center aligned basic segment" style="margin-bottom: 0 !important;">
+                <div class="ui center aligned basic segment" th:if="${blog.canAppreciation}" style="margin-bottom: 0 !important;">
                     <button id="payButton" class="ui orange basic circular button">Appreciation</button>
                 </div>
                 <div class="ui flowing popup transition hidden" id="payBlock">
@@ -452,9 +452,9 @@ h5,h6{font-size:1em;}
                 <div class="ui grid my-padded-lr-responsive">
                     <div class="eleven wide column">
                         <ul class="middle aligned list">
-                            <li>Author: Ziyue Wang</li>
-                            <li>Publish time: 4/17/2020</li>
-                            <li>License: CC BY-NC-ND 4.0</li>
+                            <li>Author: <span th:text="${blog.user.nickname}">Ziyue Wang</span> <a href="#" th:href="@{/about}">(contact author)</a></li>
+                            <li>Publish time: <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd HH:mm')}">4/17/2020</span></li>
+                            <li th:if="${blog.hasCopyrightStatement}">License: CC BY-NC-ND 4.0</li>
                         </ul>
                     </div>
                     <div class="five wide column">
@@ -462,7 +462,7 @@ h5,h6{font-size:1em;}
                     </div>
                 </div>
             </div>
-            <div id="comments" class="ui bottom attached segment">
+            <div id="comments" th:if="${blog.canComment}" class="ui bottom attached segment">
 <!--                comments-->
                 <div class="ui teal segment">
                     <div class="ui comments">
@@ -540,8 +540,10 @@ h5,h6{font-size:1em;}
                     </div>
                 </div>
                 <div class="ui form">
+                    <input type="text" name="blog.id" th:value="${blog.id}">
+                    <input type="text" name="parentComment.id" value="-1">
                     <div class="field">
-                        <textarea name="comment_content" placeholder="Please input your comments..." id="" cols="30" rows="10"></textarea>
+                        <textarea name="content" placeholder="Please input your comments..." id="" cols="30" rows="10"></textarea>
                     </div>
                     <div class="fields">
                         <div class="field my-mobile-fluid my-margin-bottom-xs">
@@ -557,7 +559,7 @@ h5,h6{font-size:1em;}
                             </div>
                         </div>
                         <div class="field my-mobile-fluid my-margin-bottom-xs">
-                            <button class="ui teal button my-mobile-fluid"><i class="edit icon"></i> submit</button>
+                            <button id="comment-post-btn" type="button" class="ui teal button my-mobile-fluid"><i class="edit icon"></i> submit</button>
                         </div>
                     </div>
                 </div>
@@ -595,7 +597,7 @@ h5,h6{font-size:1em;}
     <footer th:replace="_fragments :: footer"></footer>
 
     <div th:replace="_fragments :: scripts"></div>
-    <script>
+    <script th:inline="javascript">
         $("#menu_toggle").click(function () {
             $('.my-menu-item').toggleClass('my-mobile-hide')
         });
@@ -635,8 +637,10 @@ h5,h6{font-size:1em;}
             position: 'left center'
         });
 
+        var server = "127.0.0.1:8080";
+        var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/window.location.href;
         var qrcode = new QRCode("wechatBlock", {
-            text: window.location.href,
+            text: server+url,
             width: 120,
             height: 120,
             colorDark : "#000000",
@@ -662,6 +666,45 @@ h5,h6{font-size:1em;}
                 } else {
                     $('#toolbar').hide(500);
                 }
+            }
+        });
+
+        $('.ui.form').form({
+            fields: {
+                content: {
+                    identifier: 'content',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Please input comment content.'
+                    }]
+                },
+                nickname: {
+                    identifier: 'nickname',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Please input your name.'
+                    }]
+                },
+                email: {
+                    identifier: 'email',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Please input your email.'
+                    },{
+                        type: 'email',
+                        prompt: 'Please input right email.'
+                    }]
+                }
+            }
+        });
+
+        $("#comment-post-btn").click(function () {
+            var boo = $('.ui.form').form('validate form');
+            if (boo) {
+                console.log("Operation succeed");
+
+            } else {
+                console.log("Operation failed");
             }
         })
     </script>

@@ -10,6 +10,8 @@ import java.util.List;
 public interface BlogService {
     Blog getBlog(Long id);
 
+    Blog getAndConvert(Long id);
+
     /**
      * Generate a dynamic query with blog example containing properties
      * @param pageable for split page

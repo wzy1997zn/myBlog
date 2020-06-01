@@ -4,7 +4,7 @@ import com.zywang.myblog.dao.BlogRepository;
 import com.zywang.myblog.exceptions.NotFoundException;
 import com.zywang.myblog.po.Blog;
 import com.zywang.myblog.po.Category;
-import com.zywang.myblog.util.DescriptionUtil;
+import com.zywang.myblog.util.MarkdownUtil;
 import com.zywang.myblog.util.MyBeanUtil;
 import com.zywang.myblog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
@@ -34,6 +34,21 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog getBlog(Long id) {
         return blogRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Blog getAndConvert(Long id) {
+        Blog blog = blogRepository.findById(id).orElse(null);
+        if (blog == null) {
+            throw new NotFoundException("No such blog");
+        }
+        Blog tempBlog = new Blog();
+        BeanUtils.copyProperties(blog, tempBlog);
+        String content = blog.getContent();
+        String htmlContent = MarkdownUtil.md2htmlExtension(content);
+        tempBlog.setContent(htmlContent);
+        //set content directly to blog may cause DB operations and change the data
+        return tempBlog;
     }
 
     @Override
@@ -89,7 +104,7 @@ public class BlogServiceImpl implements BlogService {
         blog.setCreatedTime(new Date());
         blog.setUpdateTime(new Date());
         blog.setViews(0);
-        blog.setDescription(DescriptionUtil.generateDescription(blog.getContent()));
+        blog.setDescription(MarkdownUtil.generateDescription(blog.getContent()));
         return blogRepository.save(blog);
     }
 
@@ -106,7 +121,7 @@ public class BlogServiceImpl implements BlogService {
 
 //        blog.setCreatedTime(b.getCreatedTime());
 //        blog.setViews(b.getViews());
-        blog.setDescription(DescriptionUtil.generateDescription(blog.getContent()));
+        blog.setDescription(MarkdownUtil.generateDescription(blog.getContent()));
         //ignore properties with null value
         BeanUtils.copyProperties(blog,b, MyBeanUtil.getNullPropertyNames(blog));
         return blogRepository.save(b);

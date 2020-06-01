@@ -92,4 +92,11 @@ public class BlogController {
         model.addAttribute("category_list", categoryService.listAllCategories());
         model.addAttribute("tag_list", tagService.listAllTags());
     }
+
+    @GetMapping("/blog/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+        blogService.deleteBlog(id);
+        attributes.addFlashAttribute("message", "Succeed!");
+        return "redirect:/admin/blogs";
+    }
 }

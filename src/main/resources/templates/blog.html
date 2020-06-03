@@ -468,23 +468,26 @@ h5,h6{font-size:1em;}
                     <div th:fragment="commentDetails">
                         <div class="ui comments" style="max-width: 100%;">
                             <h3 class="ui dividing header">Comments</h3>
-                            <div class="comment">
+                            <div class="comment" th:each="comment : ${comments}">
                                 <a class="avatar">
-                                    <img src="https://picsum.photos/100/100">
+                                    <img src="https://picsum.photos/100/100" th:src="@{${comment.avatar}}">
                                 </a>
                                 <div class="content">
-                                    <a class="author">Matt</a>
+                                    <a class="author" th:text="${comment.nickname}">Matt</a>
                                     <div class="metadata">
-                                        <span class="date">Today at 5:42PM</span>
+                                        <span class="date" th:text="${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
                                     </div>
-                                    <div class="text">
+                                    <div class="text" th:text="${comment.content}">
                                         How artistic!
                                     </div>
                                     <div class="actions">
-                                        <a class="reply" data-commentid="1" data-commentnickname="Matt" onclick="reply(this)">Reply</a>
+                                        <a class="reply" data-commentid="1" data-commentnickname="Matt"
+                                           th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}"
+                                           onclick="reply(this)">Reply</a>
                                     </div>
                                 </div>
                             </div>
+<!--/*-->
                             <div class="comment">
                                 <a class="avatar">
                                     <img src="https://picsum.photos/100/100">
@@ -538,6 +541,7 @@ h5,h6{font-size:1em;}
                                     </div>
                                 </div>
                             </div>
+<!--*/-->
                         </div>
                     </div>
 
@@ -705,14 +709,14 @@ h5,h6{font-size:1em;}
             var boo = $('.ui.form').form('validate form');
             if (boo) {
                 console.log("Operation succeed");
-
+                postData();
             } else {
                 console.log("Operation failed");
             }
         })
 
         function postData() {
-            $("#commentDetails").load(/*[[@{/comments}]]*/"/comments",{
+            $("#commentDetails").load(/*[[@{/comment}]]*/"/comment",{
                 "parentComment.id" : $("[name='parentComment.id']").val(),
                 "blog.id" : $("[name='blog.id']").val(),
                 "nickname" : $("[name='nickname']").val(),

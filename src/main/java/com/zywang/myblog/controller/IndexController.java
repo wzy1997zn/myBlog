@@ -3,6 +3,7 @@ package com.zywang.myblog.controller;
 import com.zywang.myblog.exceptions.NotFoundException;
 import com.zywang.myblog.service.BlogService;
 import com.zywang.myblog.service.CategoryService;
+import com.zywang.myblog.service.CommentService;
 import com.zywang.myblog.service.TagService;
 import com.zywang.myblog.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class IndexController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/")
     public String index(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
@@ -57,6 +61,8 @@ public class IndexController {
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
         model.addAttribute("blog", blogService.getAndConvert(id));
+        model.addAttribute("comments", commentService.listCommentByBlogId(id));
+
         return "blog";
     }
 

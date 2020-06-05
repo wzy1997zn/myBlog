@@ -8,4 +8,9 @@ public interface CommentService {
     List<Comment> listCommentByBlogId(Long blogId);
 
     Comment saveComment(Comment comment);
+
+    List<Comment> listFirstLevelCommentsByBlogId(Long blogId);
+
+    List<Comment> listDerivativeCommentByBlogIdAndAncestorCommentId(Long blogId, Long ancestorCommentId);
+
 }

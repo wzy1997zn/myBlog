@@ -28,7 +28,15 @@ public class CommentServiceImpl implements CommentService {
     public Comment saveComment(Comment comment) {
         Long parentCommentId = comment.getParentComment().getId();
         if (parentCommentId != -1) {
-            comment.setParentComment(commentRepository.findById(parentCommentId).orElse(null));
+            Comment parentComment = commentRepository.findById(parentCommentId).orElse(null);
+            if (parentComment != null) {
+                if (parentComment.getAncestorComment() == null) {
+                    comment.setAncestorComment(parentComment);
+                } else {
+                    comment.setAncestorComment(parentComment.getAncestorComment());
+                }
+            }
+            comment.setParentComment(parentComment);
         } else {
             comment.setParentComment(null);
         }
@@ -37,4 +45,15 @@ public class CommentServiceImpl implements CommentService {
 
         return commentRepository.save(comment);
     }
+
+    @Override
+    public List<Comment> listFirstLevelCommentsByBlogId(Long blogId) {
+        return commentRepository.findByBlogIdAndAncestorCommentIsNull(blogId, Sort.by(Sort.Direction.DESC, "createTime"));
+    }
+
+    @Override
+    public List<Comment> listDerivativeCommentByBlogIdAndAncestorCommentId(Long blogId, Long ancestorCommentId) {
+        return commentRepository.findByBlogIdAndAncestorCommentId(blogId,ancestorCommentId,Sort.by(Sort.Direction.DESC, "createTime"));
+    }
+
 }

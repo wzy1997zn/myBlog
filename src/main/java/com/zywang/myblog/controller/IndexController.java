@@ -61,7 +61,7 @@ public class IndexController {
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
         model.addAttribute("blog", blogService.getAndConvert(id));
-        model.addAttribute("comments", commentService.listCommentByBlogId(id));
+        model.addAttribute("comments", commentService.listFirstLevelCommentsByBlogId(id));
 
         return "blog";
     }

@@ -486,6 +486,28 @@ h5,h6{font-size:1em;}
                                            onclick="reply(this)">Reply</a>
                                     </div>
                                 </div>
+                                <div class="comments" th:if="${#arrays.length(comment.posterityComments)}>0">
+                                    <div class="comment" th:each="reply : ${comment.posterityComments}">
+                                        <a class="avatar">
+                                            <img src="https://picsum.photos/100/100" th:src="@{${reply.avatar}}">
+                                        </a>
+                                        <div class="content">
+                                            <a class="author">
+                                                <span th:text="${reply.nickname}">Matt</span> <span class="my-teal" th:text="${'@'+reply.parentComment.nickname}">@ parent</span>
+                                            </a>
+                                            <div class="metadata">
+                                                <span class="date" th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                            </div>
+                                            <div class="text" th:text="${reply.content}">
+                                                How artistic!
+                                            </div>
+                                            <div class="actions">
+                                                <a class="reply" data-commentid="1" data-commentnickname="Matt"
+                                                   th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}"
+                                                   onclick="reply(this)">Reply</a>
+                                            </div>
+                                        </div>
+                                </div>
                             </div>
 <!--/*-->
                             <div class="comment">
@@ -741,6 +763,7 @@ h5,h6{font-size:1em;}
             $("[name='parentComment.id']").val(commentId);
             $(window).scrollTo($('#comment-form'));
         }
+
     </script>
 </body>
 </html>

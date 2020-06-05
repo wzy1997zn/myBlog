@@ -168,7 +168,11 @@ body {
 
 /*--------------------color--------------------*/
 .my-black {
-    color: #2d2d2d;
+    color: #2d2d2d !important;
+}
+
+.my-teal {
+    color: #00b5ad !important;
 }
 
 .my-mobile-show {

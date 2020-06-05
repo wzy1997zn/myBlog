@@ -27,7 +27,7 @@ public class CommentController {
     @GetMapping("/comments/{blogId}")
     public String comments(@PathVariable Long blogId, Model model) {
 
-        model.addAttribute("comments", commentService.listCommentByBlogId(blogId));
+        model.addAttribute("comments", commentService.listFirstLevelCommentsByBlogId(blogId));
         return "blog :: commentDetails";
     }
 

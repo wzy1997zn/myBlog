@@ -28,6 +28,12 @@ public class Comment {
     @ManyToOne
     private Comment parentComment;
 
+    @OneToMany(mappedBy = "ancestorComment")
+    private List<Comment> posterityComments = new ArrayList<>();
+
+    @ManyToOne
+    private Comment ancestorComment;
+
     public Comment() {
     }
 
@@ -101,6 +107,22 @@ public class Comment {
 
     public void setParentComment(Comment parentComment) {
         this.parentComment = parentComment;
+    }
+
+    public List<Comment> getPosterityComments() {
+        return posterityComments;
+    }
+
+    public void setPosterityComments(List<Comment> posterityComments) {
+        this.posterityComments = posterityComments;
+    }
+
+    public Comment getAncestorComment() {
+        return ancestorComment;
+    }
+
+    public void setAncestorComment(Comment ancestorComment) {
+        this.ancestorComment = ancestorComment;
     }
 
     @Override

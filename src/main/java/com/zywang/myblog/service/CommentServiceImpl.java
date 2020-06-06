@@ -19,7 +19,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> listCommentByBlogId(Long blogId) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+        Sort sort = Sort.by(Sort.Direction.ASC, "createTime");
         return commentRepository.findByBlogId(blogId, sort);
     }
 
@@ -48,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> listFirstLevelCommentsByBlogId(Long blogId) {
-        return commentRepository.findByBlogIdAndAncestorCommentIsNull(blogId, Sort.by(Sort.Direction.DESC, "createTime"));
+        return commentRepository.findByBlogIdAndAncestorCommentIsNull(blogId, Sort.by(Sort.Direction.ASC, "createTime"));
     }
 
     @Override

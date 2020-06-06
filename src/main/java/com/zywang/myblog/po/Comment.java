@@ -19,6 +19,8 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
+    private Boolean byAuthor;
+
     @ManyToOne
     private Blog blog;
 
@@ -123,6 +125,14 @@ public class Comment {
 
     public void setAncestorComment(Comment ancestorComment) {
         this.ancestorComment = ancestorComment;
+    }
+
+    public Boolean getByAuthor() {
+        return byAuthor;
+    }
+
+    public void setByAuthor(Boolean byAuthor) {
+        this.byAuthor = byAuthor;
     }
 
     @Override

@@ -473,7 +473,10 @@ h5,h6{font-size:1em;}
                                     <img src="https://picsum.photos/100/100" th:src="@{${comment.avatar}}">
                                 </a>
                                 <div class="content">
-                                    <a class="author" th:text="${comment.nickname}">Matt</a>
+                                    <a class="author">
+                                        <span th:text="${comment.nickname}">Matt</span>
+                                        <div class="ui mini basic teal left pointing label my-padded-mini" th:if="${comment.byAuthor}">Author</div>
+                                    </a>
                                     <div class="metadata">
                                         <span class="date" th:text="${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
                                     </div>
@@ -493,7 +496,10 @@ h5,h6{font-size:1em;}
                                         </a>
                                         <div class="content">
                                             <a class="author">
-                                                <span th:text="${reply.nickname}">Matt</span> <span class="my-teal" th:text="${'@'+reply.parentComment.nickname}">@ parent</span>
+                                                <span th:text="${reply.nickname}">
+                                                    Matt</span>
+                                                <div class="ui mini basic teal left pointing label my-padded-mini" th:if="${reply.byAuthor}">Author</div>
+                                                <span class="my-teal" th:text="${'@'+reply.parentComment.nickname}">@ parent</span>
                                             </a>
                                             <div class="metadata">
                                                 <span class="date" th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
@@ -568,6 +574,11 @@ h5,h6{font-size:1em;}
                     </div>
 
                 </div>
+
+
+
+            </div>
+
                 <div class="ui form" id="comment-form">
                     <input type="hidden" name="blog.id" th:value="${blog.id}">
                     <input type="hidden" name="parentComment.id" value="-1">
@@ -578,13 +589,13 @@ h5,h6{font-size:1em;}
                         <div class="field my-mobile-fluid my-margin-bottom-xs">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="nickname" placeholder="nickname">
+                                <input type="text" name="nickname" placeholder="nickname" th:value="${session.user}!=null ? ${session.user.nickname}">
                             </div>
                         </div>
                         <div class="field my-mobile-fluid my-margin-bottom-xs">
                             <div class="ui left icon input">
                                 <i class="mail icon"></i>
-                                <input type="text" name="email" placeholder="email">
+                                <input type="text" name="email" placeholder="email" th:value="${session.user}!=null ? ${session.user.email}">
                             </div>
                         </div>
                         <div class="field my-mobile-fluid my-margin-bottom-xs">
@@ -593,8 +604,8 @@ h5,h6{font-size:1em;}
                     </div>
                 </div>
 
-            </div>
         </div>
+    </div>
     </div>
 
     <div id="toolbar" class="my-fixed my-bottom-right my-shadow" style="display: none">

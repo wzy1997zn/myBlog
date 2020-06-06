@@ -36,12 +36,14 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     @Override
     public Blog getAndConvert(Long id) {
         Blog blog = blogRepository.findById(id).orElse(null);
         if (blog == null) {
             throw new NotFoundException("No such blog");
         }
+        blogRepository.updateViews(id);
         Blog tempBlog = new Blog();
         BeanUtils.copyProperties(blog, tempBlog);
         String content = blog.getContent();

@@ -46,7 +46,7 @@
                                             </div>
                                         </div>
                                         <div class="right aligned five wide column">
-                                            <a href="#" target="_blank" class="ui teal basic label my-padded-mini my-text-thin" th:text="${blog.category.name}">useful tools</a>
+                                            <a href="#" th:href="@{/categories/{id}(id=${blog.category.id})}" target="_blank" class="ui teal basic label my-padded-mini my-text-thin" th:text="${blog.category.name}">useful tools</a>
                                         </div>
                                     </div>
                                 </div>
@@ -222,13 +222,13 @@
                             <div class="ui two column grid">
                                 <div class="column"><i class="idea icon"></i>Categories</div>
                                 <div class="right aligned column">
-                                    <a href="#">more <i class="angle double right icon"></i></a>
+                                    <a href="#" th:href="@{/categories/-1}" target="_blank">more <i class="angle double right icon"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="ui teal segment">
                             <div class="ui fluid vertical menu">
-                                <a href="#" class="item" th:each="category : ${categories}"><span th:text="${category.name}">useful tools</span>
+                                <a href="#" th:href="@{/categories/{id}(id=${category.id})}" target="_blank" class="item" th:each="category : ${categories}"><span th:text="${category.name}">useful tools</span>
                                     <div class="ui teal basic label" th:text="${#arrays.length(category.blogs)}">13</div>
                                 </a>
 <!--/*-->
@@ -251,12 +251,12 @@
                             <div class="ui two column grid">
                                 <div class="column"><i class="tags icon"></i>Tags</div>
                                 <div class="right aligned column">
-                                    <a href="#">more <i class="angle double right icon"></i></a>
+                                    <a href="#" th:href="@{/tags/-1}" target="_blank">more <i class="angle double right icon"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="ui teal segment">
-                            <a href="#" target="_blank" class="ui teal basic left pointing label my-margin-tb-xs"
+                            <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui teal basic left pointing label my-margin-tb-xs"
                             th:each="tag : ${tags}">
                                 <span th:text="${tag.name}">design patten</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
                             </a>

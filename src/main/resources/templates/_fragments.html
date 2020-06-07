@@ -61,16 +61,16 @@
 
                 <div class="three wide column">
                     <h4 class="ui inverted header my-text-spaced my-opacity-mini">NEW BLOGS</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item">User Story</a>
-                        <a href="#" class="item">User Story</a>
-                        <a href="#" class="item">User Story</a>
+                    <div id="newBlog-container">
+                        <div th:fragment="newBlogList" class="ui inverted link list">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" class="item" target="_blank" th:each="blog : ${newBlogs}" th:text="${blog.title}">User Story</a>
+                        </div>
                     </div>
                 </div>
                 <div class="three wide column">
                     <h4 class="ui inverted header my-text-spaced my-opacity-mini">CONTACT ME</h4>
                     <div class="ui inverted link list">
-                        <a href="#" class="item">Email: qdwangzy@outlook.com</a>
+                        <a href="#" class="item" th:text="#{footer.email}">Email: qdwangzy@outlook.com</a>
                         <a href="#" class="item">QQ: 1278669362</a>
                         <!--                        <a href="#" class="item"></a>-->
                     </div>
@@ -100,6 +100,9 @@
                 integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
                 crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+        <script>
+            $('#newBlog-container').load(/*[[@{/footer/newBlogs}]]*/"/footer/newBlogs");
+        </script>
     </div>
 </body>
 </html>

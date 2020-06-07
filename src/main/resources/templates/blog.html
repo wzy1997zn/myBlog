@@ -677,7 +677,7 @@ h5,h6{font-size:1em;}
             position: 'left center'
         });
 
-        var server = "127.0.0.1:8080";
+        var server = /**[[#{blog.serurl}]]/"127.0.0.1:8080";
         var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/window.location.href;
         var qrcode = new QRCode("wechatBlock", {
             text: server+url,

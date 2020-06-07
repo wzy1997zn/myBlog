@@ -18,9 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -108,6 +106,16 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findTop(pageable);
     }
 
+    @Override
+    public Map<String, List<Blog>> historyBlog() {
+        List<String> years = blogRepository.findYears();
+        Map<String, List<Blog>> map = new LinkedHashMap<>();
+        for (String year: years) {
+            map.put(year, blogRepository.findByYear(year));
+        }
+        return map;
+    }
+
     @Transactional
     @Override
     public Blog saveBlog(Blog blog) {
@@ -135,6 +143,11 @@ public class BlogServiceImpl implements BlogService {
         //ignore properties with null value
         BeanUtils.copyProperties(blog,b, MyBeanUtil.getNullPropertyNames(blog));
         return blogRepository.save(b);
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogRepository.count();
     }
 
     @Transactional

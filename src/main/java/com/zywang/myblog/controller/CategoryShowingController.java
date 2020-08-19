@@ -25,7 +25,7 @@ public class CategoryShowingController {
     private BlogService blogService;
 
     @GetMapping("/categories/{id}")
-    public String categories(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public String categories(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                              @PathVariable Long id, Model model) {
         List<Category> categories = categoryService.listTopCategories(10000);
         if (id == -1) {

@@ -1,6 +1,5 @@
 package com.zywang.myblog.controller;
 
-import com.zywang.myblog.exceptions.NotFoundException;
 import com.zywang.myblog.service.BlogService;
 import com.zywang.myblog.service.CategoryService;
 import com.zywang.myblog.service.CommentService;
@@ -33,9 +32,11 @@ public class IndexController {
     private CommentService commentService;
 
     @GetMapping("/")
-    public String index(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public String index(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         Model model) {
-        model.addAttribute("page", blogService.listBlog(pageable, (BlogQuery) null));
+        BlogQuery blogExample = new BlogQuery();
+        blogExample.setIsPublished(true);
+        model.addAttribute("page", blogService.listBlog(pageable, blogExample));
         model.addAttribute("categories", categoryService.listTopCategories(6));
         model.addAttribute("tags", tagService.listTopTags(10));
         model.addAttribute("recommendBlogs", blogService.listRecommendTop(8));
@@ -43,7 +44,7 @@ public class IndexController {
     }
 
     @PostMapping("/search")
-    public String search(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public String search(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                          @RequestParam String query, Model model){
         model.addAttribute("page", blogService.listBlog(pageable,"%"+query+"%"));
         model.addAttribute("query", query);
@@ -51,7 +52,7 @@ public class IndexController {
     }
 
     @PostMapping("/searchAjax")
-    public String searchAjax(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public String searchAjax(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                          @RequestParam String query, Model model){
         model.addAttribute("page", blogService.listBlog(pageable,"%"+query+"%"));
         model.addAttribute("query", query);

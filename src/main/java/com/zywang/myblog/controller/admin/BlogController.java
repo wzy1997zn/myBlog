@@ -37,7 +37,7 @@ public class BlogController {
     private TagService tagService;
 
     @GetMapping("/blogs")
-    public String listBlogs(@PageableDefault(size = 2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
+    public String listBlogs(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
         getCategoriesAndTags(model);
         model.addAttribute("page", blogService.listBlog(pageable,blog));
         return "admin/manage_blog";

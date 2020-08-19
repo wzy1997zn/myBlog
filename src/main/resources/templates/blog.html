@@ -421,7 +421,7 @@ h5,h6{font-size:1em;}
 <!--                tags-->
             <div class="ui attached teal segment">
                 <div class="my-padded-lr-responsive">
-                    <a href="#" th:each="tag : ${blog.tags}" th:href="@{/tag/{id}(id=${tag.id})}" class="ui basic teal right floated left pointing label" th:text="${tag.name}">Java</a>
+                    <a href="#" th:each="tag : ${blog.tags}" th:href="@{/tags/{id}(id=${tag.id})}" class="ui basic teal right floated left pointing label" th:text="${tag.name}">Java</a>
                 </div>
 
 
@@ -677,7 +677,7 @@ h5,h6{font-size:1em;}
             position: 'left center'
         });
 
-        var server = /**[[#{blog.serurl}]]/"127.0.0.1:8080";
+        var server = /*[[#{blog.serurl}]]*/"39.106.207.30:8080";
         var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/window.location.href;
         var qrcode = new QRCode("wechatBlock", {
             text: server+url,

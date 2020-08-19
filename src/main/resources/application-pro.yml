@@ -3,17 +3,26 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?userUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: root
-    password: mysql
+    password: Wzy.1278669362
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
 
 logging:
   level:
-    root: warn
-    com.zywang: info
+    root: info
+    com.zywang: debug
+
+    org.springframework.security:
+      - debug
+      - info
+    org.springframework.web: error
+    org.hibernate.SQL: debug
+    org.hibernate.engine.QueryParameters: debug
+    org.hibernate.engine.query.HQLQueryPlan: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
   file:
     name: log/blog-pro.log
 server:
-  port: 8081
+  port: 8080

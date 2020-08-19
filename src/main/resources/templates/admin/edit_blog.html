@@ -49,7 +49,7 @@
                         <div class="ui left labeled action input">
                             <label class="ui compact teal basic label">Category</label>
                             <div class="ui fluid selection dropdown" id="category-dropdown">
-                                <input type="hidden" name="category.id" th:value="*{category.id}">
+                                <input type="hidden" name="category.id" th:value="*{category!=null}?*{category.id}:''">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Categroy</div>
                                 <div class="menu">

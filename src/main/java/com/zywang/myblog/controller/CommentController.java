@@ -39,7 +39,7 @@ public class CommentController {
         Long blogId = comment.getBlog().getId();
         Blog b = blogService.getBlog(blogId);
         User user = (User)session.getAttribute("user");
-        if (user.getId().equals(b.getUser().getId())) {
+        if (user != null && user.getId().equals(b.getUser().getId())) {
             comment.setAvatar(user.getAvatar());
             comment.setByAuthor(true);
 //            comment.setNickname(user.getNickname());

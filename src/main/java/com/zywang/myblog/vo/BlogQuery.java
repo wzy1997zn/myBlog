@@ -5,6 +5,7 @@ public class BlogQuery {
     private String title;
     private Long categoryId;
     private boolean isRecommended;
+    private boolean isPublished;
 
     public BlogQuery() {
     }
@@ -31,5 +32,13 @@ public class BlogQuery {
 
     public void setIsRecommended(boolean recommended) {
         isRecommended = recommended;
+    }
+
+    public boolean isPublished() {
+        return isPublished;
+    }
+
+    public void setIsPublished(boolean isPublished) {
+        this.isPublished = isPublished;
     }
 }

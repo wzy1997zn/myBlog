@@ -26,7 +26,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/categories")
-    public String listCategories(@PageableDefault(size = 2, sort = {"id"},direction = Sort.Direction.DESC)
+    public String listCategories(@PageableDefault(size = 10, sort = {"id"},direction = Sort.Direction.DESC)
                                              Pageable pageable, Model model) {
         model.addAttribute("page", categoryService.listCategories(pageable));
         return "admin/manage_category";
